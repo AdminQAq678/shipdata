@@ -1,0 +1,122 @@
+.mybtn{
+
+
+}
+img{
+	margin-top: 20px;
+}
+.delOrMod_btn{
+
+}
+
+
+
+#home h1{
+    font-size:45px;
+}
+body{
+background-image: url("http://pic.netbian.com/uploads/allimg/200328/231430-1585408470286e.jpg"); background-position: initial; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; background-origin: initial; background-clip: initial;
+height:100%;
+width:100%;
+}
+#home{
+    opacity:0.7;
+}
+.wall{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+div#midground{
+    background: url("https://i.postimg.cc/PP5GtGtM/midground.png");
+    z-index: -1;
+    -webkit-animation: cc 200s linear infinite;
+    -moz-animation: cc 200s linear infinite;
+    -o-animation: cc 200s linear infinite;
+    animation: cc 200s linear infinite;
+}
+div#foreground{
+    background: url("https://i.postimg.cc/z3jZZD1B/foreground.png");
+    z-index: -2;
+    -webkit-animation: cc 253s linear infinite;
+    -o-animation: cc 253s linear infinite;
+    -moz-animation: cc 253s linear infinite;
+    animation: cc 253s linear infinite;
+}
+div#top{
+    background: url("https://i.postimg.cc/PP5GtGtM/midground.png");
+    z-index: -4;
+    -webkit-animation: da 200s linear infinite;
+    -o-animation: da 200s linear infinite;
+    animation: da 200s linear infinite;
+}
+@-webkit-keyframes cc {
+    from{
+        background-position: 0 0;
+        transform: translateY(10px);
+    }
+    to{
+        background-position: 600% 0;
+    }
+}
+@-o-keyframes cc {
+    from{
+        background-position: 0 0;
+        transform: translateY(10px);
+    }
+    to{
+        background-position: 600% 0;
+    }
+}
+@-moz-keyframes cc {
+    from{
+        background-position: 0 0;
+        transform: translateY(10px);
+    }
+    to{
+        background-position: 600% 0;
+    }
+}
+@keyframes cc {
+    0%{
+        background-position: 0 0;
+    }
+    100%{
+        background-position: 600% 0;
+    }
+}
+
+@keyframes da {
+    0%{
+        background-position: 0 0;
+    }
+    100%{
+        background-position: 0 600%;
+    }
+}
+@-webkit-keyframes da {
+    0%{
+        background-position: 0 0;
+    }
+    100%{
+        background-position: 0 600%;
+    }
+}
+@-moz-keyframes da {
+    0%{
+        background-position: 0 0;
+    }
+    100%{
+        background-position: 0 600%;
+    }
+}
+@-ms-keyframes da {
+    0%{
+        background-position: 0 0;
+    }
+    100%{
+        background-position: 0 600%;
+    }
+}
