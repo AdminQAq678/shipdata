@@ -39,7 +39,7 @@ query_btn.onclick=()=>{
 	})
 	chgFlag=false;
 }
-add_btn.onclick=()=>{//添加
+add_btn.onclick=()=>{//添加用户按钮
 	for (var i=0;i<delOrMod_btn.length;i++){
 		delOrMod_btn[i].hidden=true;
 	}
@@ -102,32 +102,32 @@ mod_btn.onclick=()=>{
 
 }
 
-var m;
-var r;
  var option="chgdata"
 for(var i=0;i< delOrMod_btn.length;i++){
     delOrMod_btn[i].onclick=function modify_opration(e){//设置修改删除按钮的监听
     var theClickedBtn=e.srcElement;
     var len=th.length;
     var children=$(e.srcElement).parent().children()
-    var name=new Array()
-    var value=new Array()
     var s={}
     //var prevalue=[];
     s['tableVersion']=tableVersion
     for(var k=0;k<len;k++){
-      //name[k]=th[k].innerText;
-      // value[k]=children[k].innerText;
-      //prevalue.push(children[k].innerText)//原先的
-      s[th[k].innerText]=children[k].innerText;
+      //使用encodeURIComponentd对传入服务器的参数名进行url编码
+      //防止出现服务器无法获取到中文参数的问题
+      s[encodeURIComponent(th[k].innerText)]=children[k].innerText;
+
     }
     console.log(s)
        $.post('/'+option,s,(e)=>{//根据option的不同去修改或者删除
             r=e;
             console.log(e.data)
             if(e.data=="删除成功"){
+                alert('删除成功');
                 var index=$(theClickedBtn).parent().index();//被删除行所在索引
                 $(realtable)[0].deleteRow(index);
+            }
+            if(e.data=="修改成功"){
+                alert(e.data)
             }
             // $(e.srcElement).parent()[0].contentEditable=false;//设置点击按钮所在的行不可编辑
            //query_btn.click();

@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d8c52b2-e9d1-49d2-8135-3525b5efefa9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Email.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BasicData.py" beforeDir="false" afterPath="$PROJECT_DIR$/BasicData.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql.py" beforeDir="false" afterPath="$PROJECT_DIR$/sql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/BasicDataManeger.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/BasicDataManeger.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/BasicDataManeger.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/BasicDataManeger.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/chinapatternManeger.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/chinapatternManeger.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +54,13 @@
         <item name="船舶资料数据库: schema" type="76f4a085:MysqlImplModel$Schema" />
         <item name="国籍证书处理历史表: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="船舶资料数据库@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="船舶资料数据库: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="系统用户表: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
     </expand>
     <select />
   </component>
@@ -98,17 +100,18 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\admin\Desktop\Python代碼\python图书馆里系统\template" />
-      <recent name="C:\Users\admin\Desktop\Python代碼\python图书馆里系统" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\admin\Desktop\Python代碼\shipdata\shipdata" />
       <recent name="C:\Users\admin\Desktop\Python代碼\python图书馆里系统" />
       <recent name="C:\Users\admin\Desktop\Python代碼\python图书馆里系统\static" />
       <recent name="C:\Users\admin\Desktop\Python代碼\python图书馆里系统\template" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\admin\Desktop\Python代碼\python图书馆里系统\template" />
+      <recent name="C:\Users\admin\Desktop\Python代碼\python图书馆里系统" />
+    </key>
   </component>
-  <component name="RunManager" selected="Python.app">
+  <component name="RunManager" selected="Python.Email">
     <configuration name="1233" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="python图书馆里系统" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -123,6 +126,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/1233.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Email" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="python图书馆里系统" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Email.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -155,6 +180,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Email" />
         <item itemvalue="Python.app" />
         <item itemvalue="Python.1233" />
       </list>
@@ -197,7 +223,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1590149745029</updated>
-      <workItem from="1590976700378" duration="15164000" />
+      <workItem from="1590976700378" duration="15791000" />
+      <workItem from="1591018333163" duration="7914000" />
     </task>
     <servers />
   </component>
@@ -228,38 +255,38 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="453" y="121" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1590241336472" />
-    <state width="1323" height="209" key="GridCell.Tab.0.bottom" timestamp="1590992799077">
+    <state width="1323" height="209" key="GridCell.Tab.0.bottom" timestamp="1591026288005">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1590992799077" />
-    <state width="1323" height="209" key="GridCell.Tab.0.center" timestamp="1590992799077">
+    <state width="1323" height="209" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1591026288005" />
+    <state width="1323" height="209" key="GridCell.Tab.0.center" timestamp="1591026288005">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1590992799077" />
-    <state width="1323" height="209" key="GridCell.Tab.0.left" timestamp="1590992799076">
+    <state width="1323" height="209" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1591026288005" />
+    <state width="1323" height="209" key="GridCell.Tab.0.left" timestamp="1591026288004">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1590992799076" />
-    <state width="1323" height="209" key="GridCell.Tab.0.right" timestamp="1590992799077">
+    <state width="1323" height="209" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1591026288004" />
+    <state width="1323" height="209" key="GridCell.Tab.0.right" timestamp="1591026288005">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1590992799077" />
-    <state width="1323" height="223" key="GridCell.Tab.1.bottom" timestamp="1590981229180">
+    <state width="1323" height="209" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1591026288005" />
+    <state width="1323" height="223" key="GridCell.Tab.1.bottom" timestamp="1590996681472">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1590981229180" />
-    <state width="1323" height="223" key="GridCell.Tab.1.center" timestamp="1590981229180">
+    <state width="1323" height="223" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1590996681472" />
+    <state width="1323" height="223" key="GridCell.Tab.1.center" timestamp="1590996681471">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1590981229180" />
-    <state width="1323" height="223" key="GridCell.Tab.1.left" timestamp="1590981229180">
+    <state width="1323" height="223" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1590996681471" />
+    <state width="1323" height="223" key="GridCell.Tab.1.left" timestamp="1590996681471">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1590981229180" />
-    <state width="1323" height="223" key="GridCell.Tab.1.right" timestamp="1590981229180">
+    <state width="1323" height="223" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1590996681471" />
+    <state width="1323" height="223" key="GridCell.Tab.1.right" timestamp="1590996681472">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1590981229180" />
+    <state width="1323" height="223" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1590996681472" />
     <state width="220" height="477" key="HiddenNamespacesPopup" timestamp="1590979104487">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -272,20 +299,21 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1590651718100" />
-    <state x="363" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1590907998411">
+    <state x="363" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1591018332123">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="363" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1590907998411" />
-    <state x="475" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590976939512">
+    <state x="363" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1591018332123" />
+    <state x="475" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591026581532">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="475" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1590976939512" />
+    <state x="475" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1591026581532" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1590807950122">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1590807950122" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/shipdata$app.coverage" NAME="app Coverage Results" MODIFIED="1590992799057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/shipdata$app.coverage" NAME="app Coverage Results" MODIFIED="1591022814381" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/shipdata$Email.coverage" NAME="Email Coverage Results" MODIFIED="1591026287990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

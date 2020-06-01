@@ -17,7 +17,7 @@ from BasicData import BaseHandler
 # <li>{{i}}</li>
 # {% end%}
 database = '船舶资料数据库'
-tabVersion = '船舶所有权登记证书'
+tabVersion = '系统用户表'
 
 
 async def show(self):
@@ -34,9 +34,17 @@ async def show(self):
     await cs1.execute('desc ' + tabVersion)
     head = await cs1.fetchall()
     print(data)
+    await cs1.execute('select  权限 from  ' + tabVersion+' where 用户ID=%s',self.get_current_user())
+    priority=await cs1.fetchall()
+    print(priority[0][0])
+    if priority[0][0] == '5':#判断权限是否为超级管理员
+        self.render("index.html", head=head, show_list=data, tabVersion=tabVersion, UserName=self.get_current_user())
+    else :
+        self.redirect('/basicdata')
     await cs1.close()
     conn.close()
-    self.render("index.html", head=head, show_list=data, tabVersion=tabVersion, UserName=self.get_current_user())
+
+
 
 
 
@@ -71,7 +79,7 @@ class deldata(tornado.web.RequestHandler):
 
         value = []
         for i in arg_list:
-            value.append(self.get_argument(i))
+            value.append(self.get_argument(urllib.request.quote(i)))
         str = ""
         for i in range(0, len(arg_list), 1):
             str = str + arg_list[i] + "='" + value[i] + "'"
@@ -139,7 +147,6 @@ class adddata(tornado.web.RequestHandler):
 
 class chgdata(tornado.web.RequestHandler):
     async def post(self):
-
         global tabVersion
         global database
         tableVersion = self.get_argument("tableVersion")  # 获得查询的表
@@ -151,46 +158,59 @@ class chgdata(tornado.web.RequestHandler):
         data = await cs1.fetchall()
 
         arg_list = []  # 获取表的列名
-        print("列名")
-        print(data)
+        # print("列名")
+        # print(data)
+        updatestr = 'update 系统用户表 set '
         for i in range(0, len(data), 1):
             arg_list.append(data[i][0])
+            if i<len(data)-1:
+                updatestr = updatestr +arg_list[i] +'=%s'+','
+            else :
+                updatestr= updatestr +arg_list[i]+'=%s'+' where 用户ID= %s'
         print(arg_list)
+
         value = []  # 保存值
         for i in arg_list:  # 获取表的列值
-            value.append(self.get_argument(i))
+            value.append(self.get_argument(urllib.request.quote(i)))#url编码
+        value.append(value[0])
+        await  cs1.execute(updatestr,value)
+        await  conn.commit()
+        if cs1.rowcount!=0:
+            print(cs1.rowcount,'修改成功')
+
+
         # 拼接字符串
         pre_str = ""  # select 语句字符串，获取该行的值
-        for i in range(0, len(arg_list), 1):
-            pre_str = pre_str + arg_list[i] + "='" + value[i] + "'"
-            if i != len(arg_list) - 1:
-                pre_str += "&&"
-        await cs1.execute("select *from " + tableVersion + " where " + pre_str)
+        # for i in range(0, len(arg_list), 1):
+        #     pre_str = pre_str + arg_list[i] + "= %s"
+        #     if i != len(arg_list) - 1:
+        #         pre_str += "&&"
+        # print(pre_str)
+        # print(value)
+        # await cs1.execute("select *from " + tableVersion + " where 用户ID = %s" ,value[0])
+        #
+        # pre_value = await cs1.fetchall()
+        # print("select 执行结果")
 
-        pre_value = await cs1.fetchall()
-        print("select 执行结果")
-        print(pre_value)
-
-        for k in pre_value:  # 获取表中原来的值，可能会获取到多条符合条件的样本，所以可能需要执行多条update语句
-            Str = "update  " + tableVersion + " set "  # update 语句字符串
-            for i in range(0, len(arg_list), 1):  # 拼接字符串，arg_list是属性名
-                Str = Str + arg_list[i] + "='" + value[i] + "'"  # value为新的值
-                if i != len(arg_list) - 1:
-                    Str += ","
-            Str = Str + " where "
-            for i in range(0, len(arg_list), 1):
-                Str = Str + arg_list[i] + "='" + str(k[i]) + "'"  # k[i]为数据库中原先的值，这里str将值转成了字符串
-                if i != len(arg_list) - 1:  # 在k[i]的两边加了"'"，将值变成了数据库中字符串，如果是数值需要另外判断处理
-                    Str += "&&"
-                    print(value)
-            print(Str + "-----")  # 输出字符串
-            cs1.execute(Str)  # 执行sql语句
-            conn.commit()  # 提交
-            print(cs1.fetchall())  # 获取执行结果
+        # for k in pre_value:  # 获取表中原来的值，可能会获取到多条符合条件的样本，所以可能需要执行多条update语句
+        #     Str = "update  " + tableVersion + " set "  # update 语句字符串
+        #     for i in range(0, len(arg_list), 1):  # 拼接字符串，arg_list是属性名
+        #         Str = Str + arg_list[i] + "='" + value[i] + "'"  # value为新的值
+        #         if i != len(arg_list) - 1:
+        #             Str += ","
+        #     Str = Str + " where "
+        #     for i in range(0, len(arg_list), 1):
+        #         Str = Str + arg_list[i] + "='" + str(k[i]) + "'"  # k[i]为数据库中原先的值，这里str将值转成了字符串
+        #         if i != len(arg_list) - 1:  # 在k[i]的两边加了"'"，将值变成了数据库中字符串，如果是数值需要另外判断处理
+        #             Str += "&&"
+        #             print(value)
+        #     print(Str + "-----")  # 输出字符串
+        #     await cs1.execute(Str)  # 执行sql语句
+        #     await conn.commit()  # 提交
+            # 获取执行结果
         await cs1.close()
         conn.close()
         self.write({"data": "修改成功"})
-
 
 class login(tornado.web.RequestHandler):
     def get(self):
