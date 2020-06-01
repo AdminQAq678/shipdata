@@ -89,21 +89,28 @@ class four:   #船只基本资料管理模块
         mydb.commit()
         print(mycursor.rowcount, "记录插入成功。")
 
-    def delete(mydb, sql):      #删除
+    def delete(mydb, sql,val=None):      #删除
         mycursor = mydb.cursor()
-        mycursor.execute(sql)
+        if val!=None:
+            mycursor.execute(sql,val)
+        else :
+            mycursor.execute(sql)
         mydb.commit()
         print(mycursor.rowcount, " 条记录删除")
+        return mycursor.rowcount
 
-    def query(mydb, sql):      #查询
+    def query(mydb, sql,val=None):      #查询
         mycursor = mydb.cursor()
-        mycursor.execute(sql)
+        if val== None :
+            mycursor.execute(sql)
+        mycursor.execute(sql, val)
         myresult = mycursor.fetchall()  # fetchall() 获取所有记录
         for x in myresult:
             print(x)
         if len(myresult)!=0:
             return myresult
         else:
+            return None
             print("无数据")
 
     def update(mydb, sql, val):   #修改

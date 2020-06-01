@@ -35,7 +35,7 @@
     	 		<div class="col-md-2  col-xs-2 ">
     	 			<img src="{{ static_url('head.jpg') }}" class="  img-circle center-block img-responsive"  width="100px" height="" class="center-block" >
 					<div class="row text-center" style="margin-top:5px">
-<!--						<span style="font-size:20px;color:red">{{UserName}}</span><span>,欢迎您</span>-->
+						<span style="font-size:20px;color:red">{{UserName}}</span><span>,欢迎您</span>
 					</div>
     	 		</div>
     	 		<div class="col-md-10 col-xs-10 text-center">
@@ -143,21 +143,24 @@
                       <div class="panel-body">
 
                                 <form id='myinfo_panel'class="form-inline">
-
+                                    <div class="form-group">
+                                    <label for="序号">序号</label>
+                                    <input type="text" class="form-control" id="序号">
+                                  </div>
                                   <div class="form-group">
                                     <label for="a">船名</label>
                                     <input type="text" class="form-control" id="a">
                                   </div>
                                   <div class="form-group">
-                                    <label for="b">船舶种类</label>
+                                    <label for="b">登记号码</label>
                                     <input type="text" class="form-control" id="b" >
                                   </div>
                                     <div class="form-group">
-                                    <label for="c">船舶材料</label>
+                                    <label for="c">初次登记号</label>
                                     <input type="text" class="form-control" id="c" >
                                   </div>
                                     <div class="form-group">
-                                    <label for="d">机型</label>
+                                    <label for="d">曾用名</label>
                                     <input type="text" class="form-control" id="d" >
                                   </div>
 
@@ -166,29 +169,39 @@
                                     <input type="text" class="form-control" >
                                   </div>
                                       <div class="form-group">
+                                    <label for="d">原船籍港</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                      <div class="form-group">
+                                    <label for="d">船舶呼号</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                     <div class="form-group">
+                                    <label for="d">IMO编号</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">船舶种类</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">船体材料</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
                                     <label for="d">造船地点</label>
                                     <input type="text" class="form-control" >
                                   </div>
                                       <div class="form-group">
-                                    <label for="d">船舶登记号</label>
-                                    <input type="text" class="form-control" >
-                                  </div>
-<!--                                      <div class="form-group">-->
-<!--                                    <label for="d">运营证号</label>-->
-<!--                                    <input type="text" class="form-control" >-->
-<!--                                  </div>-->
-<!--                                      <div class="form-group">-->
-<!--                                    <label for="d">入户时间</label>-->
-<!--                                    <input type="text" class="form-control" >-->
-<!--                                  </div>-->
-<!--                                      <div class="form-group">-->
-<!--                                    <label for="d">迁出时间</label>-->
-<!--                                    <input type="text" class="form-control" >-->
-<!--                                  </div>-->
-                                      <div class="form-group">
                                     <label for="d">建成日期</label>
                                     <input type="text" class="form-control" >
-                                  </div>  <div class="form-group">
+
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">船舶价值</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
                                     <label for="d">总长</label>
                                     <input type="text" class="form-control" >
                                   </div>
@@ -209,41 +222,53 @@
                                     <input type="text" class="form-control" >
                                   </div>
                                     <div class="form-group">
+                                    <label for="d">主机种类</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">主机数目</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
                                     <label for="d">功率</label>
                                     <input type="text" class="form-control" >
                                   </div>
-<!--                                    <div class="form-group">-->
-<!--                                    <label for="d">载重吨</label>-->
-<!--                                    <input type="text" class="form-control" >-->
-<!--                                  </div>-->
-<!--                                    <div class="form-group">-->
-<!--                                    <label for="d">航行区域</label>-->
-<!--                                    <input type="text" class="form-control" >-->
-<!--                                  </div>-->
-<!--                                    <div class="form-group">-->
-<!--                                    <label for="d">备注</label>-->
-<!--                                    <input type="text" class="form-control" >-->
-<!--                                  </div>-->
+                                    <div class="form-group">
+                                    <label for="d">推进器种类</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">推进器数目</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
                                     <div class="form-group">
                                     <label for="d">船舶所有人</label>
                                     <input type="text" class="form-control" >
                                   </div>
-<!--                                    <div class="form-group">-->
-<!--                                    <label for="d">身份证</label>-->
-<!--                                    <input type="text" class="form-control" >-->
-<!--                                  </div>-->
                                     <div class="form-group">
                                     <label for="d">船舶所有人地址</label>
                                     <input type="text" class="form-control" >
                                   </div>
-<!--                                    <div class="form-group">-->
-<!--                                    <label for="d">备注</label>-->
-<!--                                    <input type="联系电话" class="form-control" >-->
-<!--                                  </div>-->
-<!--                                    <div class="form-group">-->
-<!--                                    <label for="d">船舶相片</label>-->
-<!--                                    <input type="text" class="form-control" >-->
-<!--                                  </div>-->
+                                    <div class="form-group">
+                                    <label for="d">法定代表人姓名</label>
+                                    <input type="联系电话" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">取得所有权日期</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                     <div class="form-group">
+                                    <label for="d">发证机关</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                     <div class="form-group">
+                                    <label for="d">编号</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                     <div class="form-group">
+                                    <label for="d">发证日期</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
 
 
                                   <button id='add_btn' type="button" class="btn btn-default">增加</button>
@@ -263,16 +288,16 @@
                           <div class="row">
                               <div class="col-md-2" style="margin-top:15px">
                               <select id="query_selection">
-                              <option value ="船只名称">船只名称</option>
-                              <option value ="船检登记号">船检登记号</option>
-                              <option value="船舶类型">船舶类型</option>
-                              <option value="船舶营运证号">船舶营运证号</option>
+                              <option value ="船名">船名</option>
+                              <option value ="登记号码">登记号码</option>
+                              <option value="船舶种类">船舶种类</option>
+<!--                              <option value="船舶营运证号">船舶营运证号</option>-->
 
                             </select>
                             </div>
 
                             <div class="input-group col-md-10">
-                              <input type="text" class="form-control" placeholder="Search for...">
+                              <input id="query_info"type="text" class="form-control" placeholder="Search for...">
                               <span class="input-group-btn">
                                 <button id='query_btn'class="btn btn-default" type="button">查询</button>
                                   <button class="btn btn-default" type="button">打印资料</button>
@@ -292,9 +317,9 @@
                           <div class="row">
                               <div class="col-md-5 col-xs-5" style="margin-top:15px">
                             <div class="input-group ">
-                              <input type="text" class="form-control" placeholder="请输入要删除的船名">
+                              <input id = 'del_info' type="text" class="form-control" placeholder="请输入要删除的船名">
                               <span class="input-group-btn">
-                                <button id='del_data'class="btn btn-default" type="button">删除</button>
+                                <button id='del_btn'class="btn btn-default" type="button">删除</button>
                               </span>
                             </div><!-- /input-group -->
                             </div>
@@ -313,7 +338,8 @@
 					<input id="submit_btn"type="submit" value="提交"  style="float:right;margin-right:100px;" hidden></input>
     	 		</div>
     	 	</div>
-
+            </div>
+             </div>
 
     	 </section>
 		<footer>

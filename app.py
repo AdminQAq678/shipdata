@@ -149,6 +149,7 @@ class chgdata(tornado.web.RequestHandler):
         await cs1.execute('desc ' + tableVersion)
 
         data = await cs1.fetchall()
+
         arg_list = []  # 获取表的列名
         print("列名")
         print(data)
@@ -166,7 +167,7 @@ class chgdata(tornado.web.RequestHandler):
                 pre_str += "&&"
         await cs1.execute("select *from " + tableVersion + " where " + pre_str)
 
-        pre_value = cs1.fetchall()
+        pre_value = await cs1.fetchall()
         print("select 执行结果")
         print(pre_value)
 

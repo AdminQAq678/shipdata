@@ -28,24 +28,82 @@ class basicdata(BaseHandler):
         username = self.get_current_user()
         self.render('BasicDataManeger.html', UserName=username,head=head)
     async def post(self):
-        mydb = connect()
-        length = self.get_argument('length',0)
-        sqlstr = 'insert into 船舶所有权登记证书 values('
-        value = []
-        for i in range(int(length)):
-            print(i)
-            if i < int(length)-1:
-               sqlstr+='%s,'
-            else :
-                sqlstr += '%s)'
-            value.append(self.get_argument('info_' + str(i)))
-        print(value)
-        print(sqlstr)
-        four.update(mydb,sqlstr,tuple(value))#第四个模块
 
-        # insert
-        # into
-        # 船舶所有权登记证书(船名, 船舶种类, 船体材料, 机型, 船籍港, 造船地点, 船舶登记号, 营运证号, 入户时间, 迁出时间, 建成日期, 总长, 型宽, " +
-        #                                                                                 "型深,总吨,净吨,功率,载重吨,航行区域,备注,船舶所有人,身份证,船舶所有人地址,联系电话) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s," +
-        #           "%s,%s,%s)
-        pass
+        addstr = 'insert into 船舶所有权登记证书 values('
+        querystr = 'select * from 船舶所有权登记证书 where  '
+        delstr = 'delete from 船舶所有权登记证书 where 船名 = %s '
+
+        mydb = connect()#要处理关闭问题
+        length = self.get_argument('length',0)
+        operation =self.get_argument('operation')#获取操作类型
+        value = []
+        # 获取值
+        for i in range(int(length)):
+            value.append(self.get_argument('info_' + str(i)))
+        sqlstr=''
+        if operation =='add':
+            sqlstr = addstr
+            for i in range(int(length)):
+                if i < int(length) - 1:
+                    sqlstr += '%s,'
+                else:
+                    sqlstr += '%s)'
+            four.add(mydb, sqlstr, tuple(value))  # 第四个模块增加数据
+        if operation == 'del':
+            sqlstr = delstr
+            del_info=self.get_argument('del_info')#要删除的船名
+            retcnt = four.delete(mydb,sqlstr,str(del_info))
+            if retcnt!=0:
+                self.write({'code':200})
+            else:
+                self.write({'code': -1})
+
+        if operation == 'query':
+            sqlstr = querystr
+            query_method=self.get_argument('query_method')
+            query_info=self.get_argument('query_info')
+            #print('query_info',query_info)
+            #print('query_method', query_method)
+            sqlstr=sqlstr+query_method+'= %s'
+            #print(sqlstr)
+            res=four.query(mydb,sqlstr,query_info)
+            #print('res---',res)
+            if res==None:
+                self.write({'code':'-1'})
+                return
+            #print('查询结果--------------------------',res)
+            #print(res[0])
+            #print(res[0][12])
+            data={}
+            print(len(res[0]))
+            k=0
+            for i in range(len(res[0])):
+                data[i]=str(res[0][i])#需要转成字符串类型
+                print(data[i])
+            #print(data)
+            self.write({'data':data,'code':'200'})
+        if operation=='mod':
+            update(mydb,value)#update数据
+
+def update(mydb,value):
+    tabname='船舶所有权登记证书'
+    data=four.query(mydb,'desc '+tabname)
+    arg_list = []  # 获取表的列名
+
+    for i in range(0, len(data), 1):
+        arg_list.append(data[i][0])
+
+    #print(arg_list)#查询表的属性列
+
+    Str = "update  " + tabname + " set "  # update 语句字符串
+    for i in range(0, len(arg_list), 1):  # 拼接字符串，arg_list是属性名
+        Str = Str + arg_list[i] + "= %s"  # value为新的值
+        if i != len(arg_list) - 1:
+            Str += ","
+    Str = Str + " where 船名 = %s "
+    # print('arg_list',len(arg_list))
+    # print('value', len(value))
+    # print(Str + "-----")  # 输出字符串
+    value+=value[1]   #加上查询条件船名
+    # print(value)
+    four.update(mydb, Str,tuple(value))  #多了个序号
