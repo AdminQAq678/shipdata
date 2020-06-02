@@ -16,6 +16,12 @@ Register.onclick=()=>{//登录
         return ;
     }
     var s={}
+    if (valid_code_info.value.toString().toLowerCase()!=String(valid_code_code.innerText).toLowerCase() ){
+             console.log(valid_code_info.value.toString().toLowerCase())
+            console.log(String(valid_code_code.innerText).toLowerCase())
+            alert('验证码输入错误，请重新输入');
+        }
+    else 
     if(UserId.value!=""&&Password.value!=""){
         s['UserId']=UserId.value;
         s['Password']=Password.value;
@@ -38,7 +44,9 @@ Register.onclick=()=>{//登录
 //theform.onsubmit=()=>{
 //    if(UserId.value==""||Password.value==""||UserName.value==""||phoneNumber.value=="") return false;
 //}
-
+var valid_code_info=document.getElementById('valid_code_info');//验证码输入框
+var valid_code_img=document.getElementById('valid_code_img');//验证码图片
+var valid_code_code=document.getElementById('valid_code_code');//验证码
 var SignIn_btn=document.getElementById('Singin');
 SignIn_btn.onclick=()=>{
     if(register_status==1){//注册状态，转为登录状态
@@ -46,14 +54,24 @@ SignIn_btn.onclick=()=>{
         phone.hidden=true;
         register_status=0;
     }else{
-        if(UserId.value==""||Password.value==""){
+        if(UserId.value==""){
+            alert('用户ID不可为空，请重新输入');
             return false;
-        }else{
+        }else if (Password.value=="" ){
+            alert('用户密码不可为空，请重新输入');
+
+        }else if (valid_code_info.value.toString().toLowerCase()!=String(valid_code_code.innerText).toLowerCase() ){
+             console.log(valid_code_info.value.toString().toLowerCase())
+            console.log(String(valid_code_code.innerText).toLowerCase())
+            alert('验证码输入错误，请重新输入');
+        }
+
+        else{
 
            var data={};
            data['UserId']=UserId.value;
            data['Password']=Password.value;
-
+           //data['valid_code']=valid_code_code.innerText;
 
            $.ajax({
            type: "post",
@@ -82,3 +100,15 @@ $('#theform').on('submit', function(){
 //      registPost()
      event.preventDefault() //阻止form表单默认提交
 })
+
+valid_code_img.onclick=()=>{
+
+    $.get('/getValid_code',(e)=>{
+
+        if(e.data=='获取验证码成功'){
+            valid_code_img.src+='?'//刷新图片资源
+            valid_code_code.innerText=e.code;
+            console.log(valid_code_code)
+        }
+    });
+}

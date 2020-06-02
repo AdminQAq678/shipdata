@@ -41,6 +41,18 @@
                   <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"placeholder="联系电话">
                 </div>
               </div>
+                <div id="valid_ocde" class="form-group"  >
+                    <label for="valid_code_info" class="col-sm-2 control-label">验证码</label>
+                <div class="col-sm-10 row ">
+                    <div class="col-md-6">
+                    <input type="text" class="form-control" id="valid_code_info" name="valid_code_info"placeholder="验证码">
+                    </div>
+                        <div id="valid_code_code"hidden>{{valid_code}}</div>
+                    <div class="col-md-6">
+                    <img id="valid_code_img" src="{{static_url('validCode.png')}}" alt="验证码">
+                    </div>
+                </div>
+              </div>
               <div class="form-group" >
                 <div class="col-sm-offset-2 col-sm-10">
                   <div class="checkbox">
@@ -54,17 +66,13 @@
                 <div class="col-sm-offset-2 col-sm-3">
                   <button id="Singin"type="button" formmethod="post" class="btn btn-default">Sign in</button>
 
-
                 </div>
                 <div class="col-sm-offset-2 col-sm-3">
-
-
-
+                    <button id="Register" class="btn btn-default">Register</button>
                 </div>
               </div>
-
             </form>
-            <button id="Register" class="btn btn-default">Register</button>
+
             </div>
     </div>
 </header>

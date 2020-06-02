@@ -11,6 +11,7 @@ sys.path.append("sql.py")
 import sql
 from BasicData import basicdata
 from BasicData import BaseHandler
+from valide_code import *
 # 模板语言
 # 在html中{{变量名}}self.render("index.html",name="hello",li=[1,2,3])
 # {% for i in li %}
@@ -219,8 +220,8 @@ class login(tornado.web.RequestHandler):
             self.redirect('/')
 
         next_name = self.get_argument('next', '')
-
-        self.render('login.html', nextname=next_name)
+        code=get_validCode_img()#生成验证码，返回验证码的字母序列
+        self.render('login.html', nextname=next_name,valid_code=code)
 
     async def post(self):
         global tabVersion
@@ -251,13 +252,13 @@ class login(tornado.web.RequestHandler):
         print('pwd', pwd)
 
         if len(User) == 0:
-            self.write("登录失败，用户名不存在")
-            self.redirect('/login')
+            print("登录失败，用户名不存在")
+            self.write({'data':'登录失败，用户名不存在'})
             return
         # 将用户输入的密码进行MD5加密再与数据库中获取到的密码比对
         elif pwd[0][0] != hashlib.md5(Password.encode(encoding='UTF-8')).hexdigest():
             self.write({'data': "登录失败，密码不正确"})
-            self.redirect('/login')
+            # self.redirect('/login')
             print("登录失败，密码不正确")
             return
         await  cs1.close()
@@ -410,7 +411,10 @@ class chgpwd(BaseHandler):
 
         await cs1.close()
         conn.close()
-
+class getValid_code(tornado.web.RequestHandler):
+    def get(self):
+        code=get_validCode_img()
+        self.write({'data':'获取验证码成功','code':code})
 
 def make_app():
     return tornado.web.Application([
@@ -426,7 +430,8 @@ def make_app():
         (r"/verifyPatternManeger", verifyPatternManeger),
         (r"/chinapatternmaneger", chinapatternmaneger),
         (r"/watertransitionfee", watertransitionfee),
-        (r"/chgpwd", chgpwd)],
+        (r"/chgpwd", chgpwd),
+        (r"/getValid_code",getValid_code)],
         static_path="static",
         template_path="template",
         cookie_secret='dfscmnlk2343jndjfndsfkivnd',  # cookie密码，必须要设置
