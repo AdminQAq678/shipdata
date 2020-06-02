@@ -37,7 +37,10 @@ async def show(self):
     print(data)
     await cs1.execute('select  权限 from  ' + tabVersion+' where 用户ID=%s',self.get_current_user())
     priority=await cs1.fetchall()
+    if(len(priority)==0):
+        self.redirect('/basicdata')
     print(priority[0][0])
+
     if priority[0][0] == '5':#判断权限是否为超级管理员
         self.render("index.html", head=head, show_list=data, tabVersion=tabVersion, UserName=self.get_current_user())
     else :
@@ -54,6 +57,9 @@ class MainHandler(BaseHandler):
     @tornado.web.authenticated  # 鉴权，为登录会跳转到login_url
     async def get(self):
         # self.set_cookie('UserName','password',expires=time.time()+60)
+
+        if(self.get_current_user()):
+            pass
         await show(self)  # 渲染页面
 
     # self.set_cookie('hello','world')

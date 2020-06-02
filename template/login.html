@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 
     	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap -->
@@ -15,60 +16,54 @@
 <body>
 <header class="container">
     <div class="row">
-        <div class="col-md-12 ">
-            <form id ='theform'method="post" action="/login?next={{nextname}}" class="col-md-6  form-horizontal center-block">
-              <div class="form-group">
-                <label for="UserId" class="col-sm-2 control-label">UserID</label>
+        <div class="col-md-8 col-md-offset-3">
+            <form id ='theform'method="post" action="/login?next={{nextname}}" class="col-md-8 center-block form-horizontal ">
+              <div class="form-group center-block" >
+                  <img class="img-responsive col-md-4  col-xs-4 col-sm-2" src="{{static_url('head1.jpg')}}">
+              </div>
+                <div class="form-group ">
+                <label for="UserId" class="col-sm-2 col-xs-2 col-md-2control-label">UserID</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" id="UserId" name="UserId"placeholder="UserId">
                 </div>
               </div>
               <div class="form-group">
-                <label for="Password" class="col-sm-2 control-label">Password</label>
+                <label for="Password" class="col-sm-2 col-md-2 col-xs-2 control-label">Password</label>
                 <div class="col-sm-10">
                   <input type="password" class="form-control" id="Password" name="Password"placeholder="Password">
                 </div>
               </div>
                 <div id="Name" class="form-group" hidden>
-                <label for="UserName" class="col-sm-2 control-label">员工姓名</label>
+                <label for="UserName" class="col-sm-2 col-md-2 col-xs-2 control-label">员工姓名</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" id="UserName" name="Password"placeholder="员工姓名">
                 </div>
               </div>
                 <div id="phone" class="form-group" hidden >
-                <label for="phoneNumber" class="col-sm-2 control-label">联系电话</label>
+                <label for="phoneNumber" class="col-sm-2 col-md-2 col-xs-2 control-label">联系电话</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"placeholder="联系电话">
                 </div>
               </div>
-                <div id="valid_ocde" class="form-group"  >
-                    <label for="valid_code_info" class="col-sm-2 control-label">验证码</label>
-                <div class="col-sm-10 row ">
-                    <div class="col-md-6">
+                <div id="valid_code" class="form-group "   >
+                    <label for="valid_code_info" style="margin-left: 5px;padding-right: 0px"class="col-sm-2 col-md-2 col-xs-2 control-label ">验证码</label>
+                <div class="col-sm-10  col-md-10 col-xs-10 " style="padding: 0px">
+                    <div class="col-md-6 col-xs-6 col-sm-6 " >
                     <input type="text" class="form-control" id="valid_code_info" name="valid_code_info"placeholder="验证码">
                     </div>
                         <div id="valid_code_code"hidden>{{valid_code}}</div>
-                    <div class="col-md-6">
-                    <img id="valid_code_img" src="{{static_url('validCode.png')}}" alt="验证码">
+                    <div class="col-md-6 col-xs-6 col-sm-6" >
+                    <img id="valid_code_img"  class="img-responsive" src="{{static_url('validCode.png')}}" alt="验证码">
                     </div>
                 </div>
               </div>
-              <div class="form-group" >
-                <div class="col-sm-offset-2 col-sm-10">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox"> Remember me
-                    </label>
-                  </div>
+             
+              <div class="form-group ">
+                <div class="    col-sm-3 col-xs-3 col-md-">
+                  <button id="Singin"type="button" formmethod="post" class="btn btn-success">Sign in</button>
                 </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-sm-offset-2 col-sm-3">
-                  <button id="Singin"type="button" formmethod="post" class="btn btn-default">Sign in</button>
-
-                </div>
-                <div class="col-sm-offset-2 col-sm-3">
-                    <button id="Register" class="btn btn-default">Register</button>
+                <div class="col-sm-offset-2  col-xs-offset-2 col-md-offset-2 col-sm-3 col-xs-3 col-md-3">
+                    <button id="Register" class="btn btn-info">Register</button>
                 </div>
               </div>
             </form>

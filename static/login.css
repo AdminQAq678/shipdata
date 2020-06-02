@@ -9,3 +9,16 @@
 .element {
   .center-block();
 }
+#theform{
+    margin-top:100px;
+    padding: 20px;
+    background-color: rgba(60,120,93,0.5);
+}
+body{
+background-image: url("http://pic.netbian.com/uploads/allimg/200328/231430-1585408470286e.jpg"); background-position: initial; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; background-origin: initial; background-clip: initial;
+height:100%;
+width:100%;
+}
+#valid_code_img{
+    margin-top: 5px;
+}

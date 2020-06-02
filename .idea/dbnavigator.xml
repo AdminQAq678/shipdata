@@ -23,15 +23,20 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="ebaf140f-6c23-45a4-b2c6-82a685124770">
+        <schema name="scdb" object-types="table, view" />
+        <schema name="船舶资料数据库" object-types="procedure, table, function, view" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="ebaf140f-6c23-45a4-b2c6-82a685124770">
-      <console name="Connection" type="STANDARD" schema="scdb" session="Pool"><![CDATA[use scdb;
+      <console name="Connection" type="STANDARD" schema="scdb" session="Pool">use scdb;
 show tables;
 select * from j;
 select *from s;
-select * from sc ;]]></console>
+select * from sc ;</console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
