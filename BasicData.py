@@ -13,7 +13,7 @@ class BaseHandler(tornado.web.RequestHandler):  # 用来获取cookie，下面的
 class basicdata(BaseHandler):
     @tornado.web.authenticated
     async def get(self):
-        mysql_pwd='root'
+        mysql_pwd='Cnz@1231'
         conn = await aiomysql.connect(host='localhost', port=3306, db='shipdata', user='root', password=mysql_pwd,
                                       charset='utf8')
         cs1 = await conn.cursor()

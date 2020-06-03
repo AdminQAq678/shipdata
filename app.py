@@ -19,7 +19,7 @@ from valide_code import *
 # {% end%}
 database = 'shipdata'
 tabVersion = '系统用户表'
-mysql_pwd='root'
+mysql_pwd='Cnz@1231'
 
 async def show(self):
     global tabVersion

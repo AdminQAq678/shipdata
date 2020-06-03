@@ -1,6 +1,8 @@
+#coding=utf-8
 from PIL import Image, ImageDraw, ImageFont
 import random
 import string
+
 WIDTH = 220  # 验证码图片宽度
 HEIGHT = 40  # 验证码图片长度
 RANDOM_WORLD_NUMBER = 5  # 随机字母数

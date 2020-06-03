@@ -1,4 +1,5 @@
 # import mysql.connector
+#coding=utf-8
 import pymysql
 # def connect():
 #     config={'host':'127.0.0.1' or 'localhost',
@@ -16,7 +17,7 @@ import pymysql
 #         print("数据库连接sucessfully!")
 #         return mydb
 def connect():
-    mysql_pwd='root'
+    mysql_pwd='Cnz@1231'
     mydb= pymysql.connect(host='localhost', port=3306, database='shipdata', user='root', password=mysql_pwd,
                                charset='utf8')
     return mydb
