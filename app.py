@@ -19,12 +19,13 @@ from valide_code import *
 # {% end%}
 database = '船舶资料数据库'
 tabVersion = '系统用户表'
-
+mysql_pwd='root'
 
 async def show(self):
     global tabVersion
     global database
-    conn = await aiomysql.connect(host='localhost', port=3306, db=database, user='root', password='root',
+    global mysql_pwd
+    conn = await aiomysql.connect(host='localhost', port=3306, db=database, user='root', password=mysql_pwd,
                                   charset='utf8')
     cs1 = await conn.cursor()
 
@@ -70,11 +71,12 @@ class deldata(tornado.web.RequestHandler):
 
         global tabVersion
         global database
+        global mysql_pwd
         # print(self.get_argument("tableName"))
         # print(self.get_argument("name"))
         tableVersion = self.get_argument("tableVersion")
         print(self.get_argument("tableVersion"))  # 获得查询的表
-        conn = await aiomysql.connect(host='localhost', port=3306, db=database, user='root', password='root',
+        conn = await aiomysql.connect(host='localhost', port=3306, db=database, user='root', password=mysql_pwd,
                                       charset='utf8')
         cs1 = await conn.cursor()
         await cs1.execute('desc ' + tableVersion)
@@ -109,9 +111,10 @@ class adddata(tornado.web.RequestHandler):
     async def post(self):
         global tabVersion
         global database
+        global mysql_pwd
         tableVersion = self.get_argument("tableVersion")  # 获得查询的表
         print(tableVersion)
-        conn = await aiomysql.connect(host='localhost', port=3306, db=database, user='root', password='root',
+        conn = await aiomysql.connect(host='localhost', port=3306, db=database, user='root', password=mysql_pwd,
                                       charset='utf8')
         cs1 = await conn.cursor()
         await cs1.execute('desc ' + tableVersion)
@@ -156,8 +159,9 @@ class chgdata(tornado.web.RequestHandler):
     async def post(self):
         global tabVersion
         global database
+        global mysql_pwd
         tableVersion = self.get_argument("tableVersion")  # 获得查询的表
-        conn = await aiomysql.connect(host='localhost', port=3306, db=database, user='root', password='root',
+        conn = await aiomysql.connect(host='localhost', port=3306, db=database, user='root', password=mysql_pwd,
                                       charset='utf8')
         cs1 = await conn.cursor();
         await cs1.execute('desc ' + tableVersion)
@@ -232,7 +236,7 @@ class login(tornado.web.RequestHandler):
     async def post(self):
         global tabVersion
         global database
-
+        global mysql_pwd
         UserId = self.get_argument("UserId", '')
         Password = self.get_argument("Password", '')
         print(UserId)
@@ -242,7 +246,7 @@ class login(tornado.web.RequestHandler):
 
         # 下一个网址，也就是上一个路由地址
 
-        conn = await aiomysql.connect(host='localhost', port=3306, db='船舶资料数据库', user='root', password='root',
+        conn = await aiomysql.connect(host='localhost', port=3306, db='船舶资料数据库', user='root', password=mysql_pwd,
                                       charset='utf8')
 
         cs1 = await conn.cursor()
@@ -284,6 +288,7 @@ class register(tornado.web.RequestHandler):
         # into
         # 系统用户表(用户ID, 密码, 权限, 员工姓名, 联系电话)
         # values(?, ?, ?, ?, ?)
+        global mysql_pwd
         UserId = self.get_argument('UserId')
         Password = self.get_argument('Password')
         phoneNumber=self.get_argument('phoneNumber')
@@ -292,7 +297,7 @@ class register(tornado.web.RequestHandler):
         print(Password)
         print('账号', UserId)
         print(Password)
-        conn = await aiomysql.connect(host='localhost', port=3306, db='船舶资料数据库', user='root', password='root',
+        conn = await aiomysql.connect(host='localhost', port=3306, db='船舶资料数据库', user='root', password=mysql_pwd,
                                       charset='utf8')
         cs1 = await conn.cursor()
         str = 'select * from 系统用户表 where 用户ID = %s'
@@ -339,11 +344,12 @@ class chgdbandtab(tornado.web.RequestHandler):
     async def post(self):
         global tabVersion
         global database
+        global mysql_pwd
         tabVersion = self.get_argument('tableVersion', 'p')
         database = self.get_argument('db', 'shiyan')
         print("tab" + tabVersion)
         print("db:" + database)
-        conn = await aiomysql.connect(host='localhost', port=3306, db=database, user='root', password='root',
+        conn = await aiomysql.connect(host='localhost', port=3306, db=database, user='root', password=mysql_pwd,
                                       charset='utf8')
         cs1 = await conn.cursor()
         await cs1.execute('select  * from  ' + tabVersion)
@@ -393,11 +399,12 @@ class chgpwd(BaseHandler):
         self.render('chgpwd.html')
 
     async def post(self):
+        global mysql_pwd
         pre_pwd = self.get_argument('pre_pwd')
         new_pwd = self.get_argument('new_pwd')
         new_pwd = hashlib.md5(new_pwd.encode(encoding="UTF-8")).hexdigest()
         user = self.get_secure_cookie("ID");
-        conn = await aiomysql.connect(host='localhost', port=3306, db='船舶资料数据库', user='root', password='root',
+        conn = await aiomysql.connect(host='localhost', port=3306, db='船舶资料数据库', user='root', password=mysql_pwd,
                                       charset='utf8')
         cs1 = await conn.cursor()
         print(user)

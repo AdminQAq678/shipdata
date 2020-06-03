@@ -16,7 +16,8 @@ import pymysql
 #         print("数据库连接sucessfully!")
 #         return mydb
 def connect():
-    mydb= pymysql.connect(host='localhost', port=3306, database='船舶资料数据库', user='root', password='root',
+    mysql_pwd='root'
+    mydb= pymysql.connect(host='localhost', port=3306, database='船舶资料数据库', user='root', password=mysql_pwd,
                                charset='utf8')
     return mydb
 
