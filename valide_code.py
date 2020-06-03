@@ -42,7 +42,7 @@ def get_validCode_img():
         y2 = random.randint(0, HEIGHT)
         draw.line((x1, y1, x2, y2), fill=get_random_color())
 
-    with open("static\\validCode.png", "wb") as f:
+    with open("static/validCode.png", "wb") as f:
         img.save(f, "png")
     return code
 

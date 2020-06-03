@@ -17,8 +17,9 @@
 ALTER DATABASE 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-CREATE DATABASE 船舶资料数据库;
-USE 船舶资料数据库;
+drop database if exists shipdata;
+CREATE DATABASE shipdata;
+USE shipdata;
 -- ----------------------------
 -- Table structure for 中间检验处理历史表
 -- ----------------------------
