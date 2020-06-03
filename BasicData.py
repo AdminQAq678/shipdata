@@ -14,7 +14,7 @@ class basicdata(BaseHandler):
     @tornado.web.authenticated
     async def get(self):
         mysql_pwd='root'
-        conn = await aiomysql.connect(host='localhost', port=3306, db='船舶资料数据库', user='root', password=mysql_pwd,
+        conn = await aiomysql.connect(host='localhost', port=3306, db='shipdata', user='root', password=mysql_pwd,
                                       charset='utf8')
         cs1 = await conn.cursor()
         sqlstr='desc 船舶所有权登记证书'

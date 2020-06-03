@@ -17,7 +17,7 @@ from valide_code import *
 # {% for i in li %}
 # <li>{{i}}</li>
 # {% end%}
-database = '船舶资料数据库'
+database = 'shipdata'
 tabVersion = '系统用户表'
 mysql_pwd='root'
 
@@ -246,7 +246,7 @@ class login(tornado.web.RequestHandler):
 
         # 下一个网址，也就是上一个路由地址
 
-        conn = await aiomysql.connect(host='localhost', port=3306, db='船舶资料数据库', user='root', password=mysql_pwd,
+        conn = await aiomysql.connect(host='localhost', port=3306, db='shipdata', user='root', password=mysql_pwd,
                                       charset='utf8')
 
         cs1 = await conn.cursor()
@@ -297,7 +297,7 @@ class register(tornado.web.RequestHandler):
         print(Password)
         print('账号', UserId)
         print(Password)
-        conn = await aiomysql.connect(host='localhost', port=3306, db='船舶资料数据库', user='root', password=mysql_pwd,
+        conn = await aiomysql.connect(host='localhost', port=3306, db='shipdata', user='root', password=mysql_pwd,
                                       charset='utf8')
         cs1 = await conn.cursor()
         str = 'select * from 系统用户表 where 用户ID = %s'
@@ -404,7 +404,7 @@ class chgpwd(BaseHandler):
         new_pwd = self.get_argument('new_pwd')
         new_pwd = hashlib.md5(new_pwd.encode(encoding="UTF-8")).hexdigest()
         user = self.get_secure_cookie("ID");
-        conn = await aiomysql.connect(host='localhost', port=3306, db='船舶资料数据库', user='root', password=mysql_pwd,
+        conn = await aiomysql.connect(host='localhost', port=3306, db='shipdata', user='root', password=mysql_pwd,
                                       charset='utf8')
         cs1 = await conn.cursor()
         print(user)
