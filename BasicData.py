@@ -1,6 +1,7 @@
 import tornado.web
 import aiomysql
-from sql import *
+from sqlserver import *
+mydb=conn()
 class BaseHandler(tornado.web.RequestHandler):  # 用来获取cookie，下面的鉴权注解会用到
     def get_current_user(self):
         current_user = self.get_secure_cookie('ID')
@@ -12,28 +13,22 @@ class BaseHandler(tornado.web.RequestHandler):  # 用来获取cookie，下面的
 
 class basicdata(BaseHandler):
     @tornado.web.authenticated
-    async def get(self):
-        mysql_pwd='Cnz@1231'
-        conn = await aiomysql.connect(host='localhost', port=3306, db='shipdata', user='root', password=mysql_pwd,
-                                      charset='utf8')
-        cs1 = await conn.cursor()
-        sqlstr='desc 船舶所有权登记证书'
-        await cs1.execute(sqlstr)
+    def get(self):
+        cs1 =  mydb.cursor()
+        sqlstr="select COLUMN_NAME from information_schema.COLUMNS where table_name =  '船舶所有权登记证书'"
+        cs1.execute(sqlstr)
         head=cs1.fetchall()
-
         print(head)
 
-        await cs1.close()
-        conn.close()
+        cs1.close()
         username = self.get_current_user()
         self.render('BasicDataManeger.html', UserName=username,head=head)
-    async def post(self):
 
+    def post(self):
         addstr = 'insert into 船舶所有权登记证书 values('
         querystr = 'select * from 船舶所有权登记证书 where  '
         delstr = 'delete from 船舶所有权登记证书 where 船名 = %s '
 
-        mydb = connect()#要处理关闭问题
         length = self.get_argument('length',0)
         operation =self.get_argument('operation')#获取操作类型
         value = []
