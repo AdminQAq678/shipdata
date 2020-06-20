@@ -1,7 +1,10 @@
 import tornado.web
 import aiomysql
-from sqlserver import *
-mydb=conn()
+from sql import *
+
+mydb = connect()
+
+
 class BaseHandler(tornado.web.RequestHandler):  # 用来获取cookie，下面的鉴权注解会用到
     def get_current_user(self):
         current_user = self.get_secure_cookie('ID')
@@ -14,29 +17,29 @@ class BaseHandler(tornado.web.RequestHandler):  # 用来获取cookie，下面的
 class basicdata(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        cs1 =  mydb.cursor()
-        sqlstr="select COLUMN_NAME from information_schema.COLUMNS where table_name =  '船舶所有权登记证书'"
+        cs1 = mydb.cursor()
+        sqlstr = "select COLUMN_NAME from information_schema.COLUMNS where table_name =  '船舶所有权登记证书'"
         cs1.execute(sqlstr)
-        head=cs1.fetchall()
+        head = cs1.fetchall()
         print(head)
 
         cs1.close()
         username = self.get_current_user()
-        self.render('BasicDataManeger.html', UserName=username,head=head)
+        self.render('BasicDataManeger.html', UserName=username, head=head)
 
     def post(self):
         addstr = 'insert into 船舶所有权登记证书 values('
         querystr = 'select * from 船舶所有权登记证书 where  '
         delstr = 'delete from 船舶所有权登记证书 where 船名 = %s '
 
-        length = self.get_argument('length',0)
-        operation =self.get_argument('operation')#获取操作类型
+        length = self.get_argument('length', 0)
+        operation = self.get_argument('operation')  # 获取操作类型
         value = []
         # 获取值
         for i in range(int(length)):
             value.append(self.get_argument('info_' + str(i)))
-        sqlstr=''
-        if operation =='add':
+        sqlstr = ''
+        if operation == 'add':
             sqlstr = addstr
             for i in range(int(length)):
                 if i < int(length) - 1:
@@ -46,49 +49,50 @@ class basicdata(BaseHandler):
             four.add(mydb, sqlstr, tuple(value))  # 第四个模块增加数据
         if operation == 'del':
             sqlstr = delstr
-            del_info=self.get_argument('del_info')#要删除的船名
-            retcnt = four.delete(mydb,sqlstr,str(del_info))
-            if retcnt!=0:
-                self.write({'code':200})
+            del_info = self.get_argument('del_info')  # 要删除的船名
+            retcnt = four.delete(mydb, (sqlstr, str(del_info)))
+            if retcnt != 0:
+                self.write({'code': 200})
             else:
                 self.write({'code': -1})
 
         if operation == 'query':
             sqlstr = querystr
-            query_method=self.get_argument('query_method')
-            query_info=self.get_argument('query_info')
-            #print('query_info',query_info)
-            #print('query_method', query_method)
-            sqlstr=sqlstr+query_method+'= %s'
-            #print(sqlstr)
-            res=four.query(mydb,sqlstr,query_info)
-            #print('res---',res)
-            if res==None:
-                self.write({'code':'-1'})
+            query_method = self.get_argument('query_method')
+            query_info = self.get_argument('query_info')
+            # print('query_info',query_info)
+            # print('query_method', query_method)
+            sqlstr = sqlstr + query_method + '= %s'
+            # print(sqlstr)
+            res = four.query(mydb, sqlstr,query_info)
+            # print('res---',res)
+            if res == None:
+                self.write({'code': '-1'})
                 return
-            #print('查询结果--------------------------',res)
-            #print(res[0])
-            #print(res[0][12])
-            data={}
+            # print('查询结果--------------------------',res)
+            # print(res[0])
+            # print(res[0][12])
+            data = {}
             print(len(res[0]))
-            k=0
+            k = 0
             for i in range(len(res[0])):
-                data[i]=str(res[0][i])#需要转成字符串类型
+                data[i] = str(res[0][i])  # 需要转成字符串类型
                 print(data[i])
-            #print(data)
-            self.write({'data':data,'code':'200'})
-        if operation=='mod':
-            update(mydb,value)#update数据
+            # print(data)
+            self.write({'data': data, 'code': '200'})
+        if operation == 'mod':
+            update(mydb, value)  # update数据
 
-def update(mydb,value):
-    tabname='船舶所有权登记证书'
-    data=four.query(mydb,'desc '+tabname)
+
+def update(mydb, value):
+    tabname = '船舶所有权登记证书'
+    data = four.query(mydb, 'desc ' + tabname)
     arg_list = []  # 获取表的列名
 
     for i in range(0, len(data), 1):
         arg_list.append(data[i][0])
 
-    #print(arg_list)#查询表的属性列
+    # print(arg_list)#查询表的属性列
 
     Str = "update  " + tabname + " set "  # update 语句字符串
     for i in range(0, len(arg_list), 1):  # 拼接字符串，arg_list是属性名
@@ -99,6 +103,6 @@ def update(mydb,value):
     # print('arg_list',len(arg_list))
     # print('value', len(value))
     # print(Str + "-----")  # 输出字符串
-    value+=value[1]   #加上查询条件船名
+    value += value[1]  # 加上查询条件船名
     # print(value)
-    four.update(mydb, Str,tuple(value))  #多了个序号
+    four.update(mydb, Str, tuple(value))  # 多了个序号

@@ -1,0 +1,434 @@
+
+<!--基本资料管理模块-->
+    <!doctype html>
+    <html lang="en">
+    <head>
+    	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+    <title>资料查询与报表处理</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ static_url('./index.css') }}">
+	<script src="http://code.jquery.com/jquery-1.8.0.js"></script>
+        <style>
+            label{
+            width:100px;
+            margin-left:20px;
+            }
+            .panel-body input{
+            margin-top:10px;
+            }
+            .panel-body button{
+            margin-top:10px;
+            }
+        </style>
+    </head>
+    <body>
+
+    	 <header class="container-fluid">
+    	 	<div class="row "><!-- 第一行-->
+    	 		<div class="btn " >
+
+    	 		</div>
+    	 		<div class="col-md-2  col-xs-2 ">
+    	 			<img src="{{ static_url('head.jpg') }}" class="  img-circle center-block img-responsive"  width="100px" height="" class="center-block" >
+					<div class="row text-center" style="margin-top:5px">
+						<span style="font-size:20px;color:red">{{UserName}}</span><span>,欢迎您</span>
+					</div>
+    	 		</div>
+    	 		<div class="col-md-10 col-xs-10 text-center">
+
+    	 			<h1>数据库管理系统</h1>
+					<div class="row">
+	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">首页</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a id="query_one" href="#">查询证书 <span class="sr-only">(current)</span></a></li>
+        <li><a href="#" id="query_two" >查询缴费情况</a></li>
+
+          <li><a href="#" id="query_three" >按照时间查询</a></li>
+          <li><a href="#" id="query_four" >查询船只所有关联资料</a></li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">模块 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">A</a></li>
+            <li><a href="#">B</a></li>
+            <li><a href="#">C</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">D</a></li>
+
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">用户信息</a></li>
+            <li><a href="/logout">注销登录</a></li>
+            <li><a href="/chgpwd">修改用户
+密码</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">联系我们</a></li>
+              <li><a href="#">服务器配置</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+					</div>
+    	 		</div>
+    	 	</div>
+
+
+    	 </header>
+
+
+		 <section class="container">
+
+		 </section>
+    	 <section>
+
+    	 	<div class="row">
+                  <div class="list-group col-md-2 col-xs-2 col-sm-2 " style="margin-left:20px">
+
+                    	<a target="_blank" href="/"  class=" list-group-item    mybtn">系统管理</a>
+
+    	 				<a target="" href="/querydata"class=" list-group-item  mybtn active">资料查询与报表处理</a>
+
+    	 				<a target="" href="/basicdata" class="list-group-item  mybtn">船只基本资料管理</a>
+
+    	 				<a target="" href="#"class=" list-group-item  mybtn">船只营运证书资料管理</a>
+
+    	 				<a target="" href="/verifyPatternManeger"class="list-group-item  mybtn">船只检验证书资料管理</a>
+
+    	 				<a target="" href="#"  class="list-group-item  mybtn">船只安检证书资料管理</a>
+
+    	 				<a target="" href="/nationCtf" class="list-group-item  mybtn">船只国籍配员证书资料管理</a>
+
+    	 				<a target="" href="/navigationFee" class="list-group-item   mybtn">船只缴纳航道费情况管理</a>
+
+    	 				<a target="_blank" href="/waterFee" class="list-group-item  mybtn">船只缴纳水运费情况管理</a>
+
+                  </div>
+
+    	 		<div id="mytable"class="col-md-9 col-xs-9" >
+                   <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">查询方式</h3>
+                      </div>
+
+                      <div class="panel-body">
+                          <div class="row">
+                            <div class="input-group col-md-10">
+                              <input id="query_info"type="text" class="form-control" placeholder="Search for...">
+                              <span class="input-group-btn">
+                                <button id='query_btn'class="btn btn-default" type="button">按照船名查询</button>
+                                  <button class="btn btn-default" type="button">打印资料</button>
+                              </span>
+                            </div><!-- /input-group -->
+                            </div>
+                      </div>
+
+                    </div>
+
+                    <div id="query_table_one">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">营运证书</h3>
+                      </div>
+                      <div class="panel-body">
+
+                                <form id='myinfo_panel_1'class="form-inline">
+                                    <div class="form-group">
+                                    <label for="序号">序号</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="a">船名</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="b">证书编号</label>
+                                    <input type="text" class="form-control"  >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="c">载客定额</label>
+                                    <input type="text" class="form-control"  >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">载货定额</label>
+                                    <input type="text" class="form-control"  >
+                                  </div>
+
+                                    <div class="form-group">
+                                    <label for="d">[经济性质]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                      <div class="form-group">
+                                    <label for="d">[船舶经营人]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                      <div class="form-group">
+                                    <label for="d">[批准机关]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                     <div class="form-group">
+                                    <label for="d">[批准文号]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">[客运航线]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">[发证日期]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">[有效日期]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+
+                                  <button id='add_btn' type="button" class="btn btn-default">增加</button>
+                                    <button id='mod_btn' type="button" class="btn btn-default">修改</button>
+                             </form>
+                      </div>
+
+                    </div>
+
+
+
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">船舶最低安全配员证书</h3>
+                      </div>
+                      <div class="panel-body">
+
+                                <form id='myinfo_panel_2'class="form-inline">
+                                    <div class="form-group">
+                                    <label for="序号">序号</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="a">船名</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="b">证书编号</label>
+                                    <input type="text" class="form-control"  >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="c">船舶种类</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">船籍港</label>
+                                    <input type="text" class="form-control"  >
+                                  </div>
+
+                                    <div class="form-group">
+                                    <label for="d">[签发日期]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                      <div class="form-group">
+                                    <label for="d">[发证机关]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                      <div class="form-group">
+                                    <label for="d">[证书有效期至]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+
+
+                             </form>
+                      </div>
+
+                    </div>
+
+
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">船舶国籍证书</h3>
+                      </div>
+                      <div class="panel-body">
+
+                                <form id='myinfo_panel_3'class="form-inline">
+                                    <div class="form-group">
+                                    <label for="序号">序号</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="a">船名</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="b">曾用名</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="c">证书编号</label>
+                                    <input type="text" class="form-control"  >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">证书有效期</label>
+                                    <input type="text" class="form-control"  >
+                                  </div>
+
+                                    <div class="form-group">
+                                    <label for="d">[取得所有权日期]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                      <div class="form-group">
+                                    <label for="d">[签发日期]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                      <div class="form-group">
+                                    <label for="d">[发证机关及其编号]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+
+
+                             </form>
+                      </div>
+
+                    </div>
+
+
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">货船适航证书</h3>
+                      </div>
+                      <div class="panel-body">
+
+                                <form id='myinfo_panel_4'class="form-inline">
+                                    <div class="form-group">
+                                    <label for="序号">序号</label>
+                                    <input type="text" class="form-control" id="序号">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="a">船名</label>
+                                    <input type="text" class="form-control" id="a">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="b">船检登记号</label>
+                                    <input type="text" class="form-control" id="b" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="c">编号</label>
+                                    <input type="text" class="form-control" id="c" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">证书有效期</label>
+                                    <input type="text" class="form-control" id="d" >
+                                  </div>
+
+                                    <div class="form-group">
+                                    <label for="d">[年度检验日期]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                      <div class="form-group">
+                                    <label for="d">[中间检验日期]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                      <div class="form-group">
+                                    <label for="d">[特别检验日期]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                     <div class="form-group">
+                                    <label for="d">[坞内检验日期]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">[螺旋桨尾轴检验日期]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">[锅炉检验日期]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">[航区航线]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">[发证日期]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">[发证单位]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+                                    <div class="form-group">
+                                    <label for="d">[主任验船师]</label>
+                                    <input type="text" class="form-control" >
+                                  </div>
+
+
+                             </form>
+                      </div>
+
+                    </div>
+
+                    </div>
+    	 	</div>
+
+
+<!--                按照船名查询查询缴费情况-->
+                <div id="query_table_two">
+
+                </div>
+<!--                相关证书的有效日期和办证通知时间-->
+                <div id="query_table_three">
+
+                </div>
+<!--                查找船只的所有关联资料-->
+                <div id="query_table_four">
+
+                </div>
+            </div>
+             </div>
+
+    	 </section>
+		<footer>
+			
+		</footer>
+
+
+
+<div id="midground" class="wall"></div>
+ <div id="foreground" class="wall"></div>
+ <div id="top" class="wall"></div>
+<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="https://files.cnblogs.com/files/lfri/canvas-nest.js"></script>
+
+
+
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ static_url('querydata.js') }}"></script>
+    </body>
+    </html>
+
+
+    

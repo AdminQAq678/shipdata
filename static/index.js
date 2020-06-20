@@ -36,6 +36,7 @@ query_btn.onclick=()=>{
 	$.get('/',(e)=>{
 	console.log(e.data)
 	    console.log("查询成功")
+
 	})
 	chgFlag=false;
 }
@@ -189,44 +190,45 @@ chgdbandtabbtn.onclick=()=>{
         data:s,
         dataType:"json",
         success:function(data){
-         window.location.reload();//刷新页面
-//            console.log('ok')
-//            var head=data.head;
-//            var data1=data.data;
-//             tabVersion=data.tabVersion;
-//            console.log(head);
-//            console.log(data1);
-//            console.log(tabVersion);
-//            var trLength=tr.length;
-//            for (var i =1;i<trLength;i++)
-//            {
-//                console.log(i)
-//                realtable.deleteRow(1);
-//
-//            }
-//            var t=realtable.insertRow(tr.length);
-//            //插入表头
-//            for (var i=0;i<head.length;i++){
-//                var tem=t.insertCell(i);
-//                tem.innerText=head[i][0]
-//            }
-//            //插入表体
-//            for (var i=0;i<data1.length;i++){
-//                  var t=realtable.insertRow(tr.length);
-//                  for (var k=0;k<data1[i].length;k++){
-//                    var tem=t.insertCell(k);
-//                    tem.innerText=data1[i][k]
-//                    }
-//            }
-//            tableVersion.innerText=tabVersion;
+        // window.location.reload();//刷新页面
+           console.log('ok')
+           var head=data.head;
+           var data1=data.data;
+            tabVersion=data.tabVersion;
+           console.log(head);
+           console.log(data1);
+           console.log(tabVersion);
+           var trLength=tr.length;
+           for (var i =1;i<trLength;i++)
+           {
+               console.log(i)
+               realtable.deleteRow(1);
 
-            //$(tableVersion).parent()
+           }
 
-//            var t=realtable.insertRow(tr.length );//在表格的最后一行插入
-//            for (var i = th.length - 1; i >= 0; i--) {
-//                t.insertCell(0);//插入单元格
-//                t.contentEditable=true;//设置可编辑
-//            };
+           var t=realtable.insertRow(tr.length);
+           //插入表头
+           for (var i=0;i<head.length;i++){
+               var tem=t.insertCell(i);
+               tem.innerText=head[i][0]
+           }
+           //插入表体
+           for (var i=0;i<data1.length;i++){
+                 var t=realtable.insertRow(tr.length);
+                 for (var k=0;k<data1[i].length;k++){
+                   var tem=t.insertCell(k);
+                   tem.innerText=data1[i][k]
+                   }
+           }
+           $("#tableVersion").children()[0].innerText=tabVersion;
+
+            // $(tableVersion).parent()
+
+           // var t=realtable.insertRow(tr.length );//在表格的最后一行插入
+           // for (var i = th.length - 1; i >= 0; i--) {
+           //     t.insertCell(0);//插入单元格
+           //     t.contentEditable=true;//设置可编辑
+           // };
 
         }
     });

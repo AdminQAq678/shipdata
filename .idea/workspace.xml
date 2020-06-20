@@ -2,20 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d8c52b2-e9d1-49d2-8135-3525b5efefa9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sqlserver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/2018级数据库系统原理课程设计＿白伟华.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/querydata.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sql语句.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nationCtf.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/navigationFee.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/querydata.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/verify.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/waterFee.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/template/queryData.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/template/waterFee.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/verifydata.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/模块要求.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BasicData.py" beforeDir="false" afterPath="$PROJECT_DIR$/BasicData.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sqlserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/sqlserver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/validCode.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/validCode.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/template/BasicDataManeger.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/BasicDataManeger.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/SystemManeger.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/SystemManeger.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/chgpwd.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/chgpwd.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/chinapatternManeger.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/chinapatternManeger.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/chinapatternManeger.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/nationCtf.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/template/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/operationCtf.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/operationCtf.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/template/verifyPatternManeger.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/verifyPatternManeger.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/waterTransitionFee.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/waterTransitionFee.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/waterTransitionFee.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/navigationFee.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,16 +86,17 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/template" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\admin\Desktop\bak\Python代碼\shipdata 4.0\shipdata\template" />
+      <recent name="C:\Users\admin\Desktop\bak\Python代碼\shipdata 4.0\shipdata\static" />
       <recent name="C:\Users\admin\Desktop\bak\Python代碼\shipdata 4.0\shipdata" />
       <recent name="C:\Users\admin\Desktop\Python代碼\shipdata\shipdata\static" />
       <recent name="C:\Users\admin\Desktop\Python代碼\python图书馆里系统\template" />
-      <recent name="C:\Users\admin\Desktop\Python代碼\python图书馆里系统" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\admin\Desktop\Python代碼\shipdata\shipdata" />
@@ -95,28 +106,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.app">
-    <configuration name="1233" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="python图书馆里系统" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/1233.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="1234" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="python图书馆里系统" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -183,6 +172,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="python图书馆里系统" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="valide_code" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="python图书馆里系统" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -208,10 +219,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.app" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.1234" />
         <item itemvalue="Python.valide_code" />
         <item itemvalue="Python.Email" />
-        <item itemvalue="Python.1233" />
       </list>
     </recent_temporary>
   </component>
@@ -253,7 +264,18 @@
       <workItem from="1591065167354" duration="8162000" />
       <workItem from="1591361150764" duration="1529000" />
       <workItem from="1591924252339" duration="4509000" />
-      <workItem from="1591968742359" duration="8393000" />
+      <workItem from="1591968742359" duration="8837000" />
+      <workItem from="1592008109108" duration="14110000" />
+      <workItem from="1592032086924" duration="7299000" />
+      <workItem from="1592096987173" duration="6628000" />
+      <workItem from="1592118179672" duration="2942000" />
+      <workItem from="1592376211017" duration="29746000" />
+      <workItem from="1592447801614" duration="400000" />
+      <workItem from="1592560485543" duration="9560000" />
+      <workItem from="1592579389787" duration="175000" />
+      <workItem from="1592620970640" duration="3372000" />
+      <workItem from="1592643495607" duration="5180000" />
+      <workItem from="1592666006274" duration="2903000" />
     </task>
     <servers />
   </component>
@@ -291,38 +313,38 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="453" y="121" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1590241336472" />
-    <state width="1323" height="209" key="GridCell.Tab.0.bottom" timestamp="1591976740968">
+    <state width="1323" height="267" key="GridCell.Tab.0.bottom" timestamp="1592668891447">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1591976740968" />
-    <state width="1323" height="209" key="GridCell.Tab.0.center" timestamp="1591976740967">
+    <state width="1323" height="267" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1592668891447" />
+    <state width="1323" height="267" key="GridCell.Tab.0.center" timestamp="1592668891447">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1591976740967" />
-    <state width="1323" height="209" key="GridCell.Tab.0.left" timestamp="1591976740967">
+    <state width="1323" height="267" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1592668891447" />
+    <state width="1323" height="267" key="GridCell.Tab.0.left" timestamp="1592668891446">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1591976740967" />
-    <state width="1323" height="209" key="GridCell.Tab.0.right" timestamp="1591976740968">
+    <state width="1323" height="267" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1592668891446" />
+    <state width="1323" height="267" key="GridCell.Tab.0.right" timestamp="1592668891447">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1591976740968" />
-    <state width="1323" height="223" key="GridCell.Tab.1.bottom" timestamp="1590996681472">
+    <state width="1323" height="267" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1592668891447" />
+    <state width="1323" height="223" key="GridCell.Tab.1.bottom" timestamp="1592415344890">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1590996681472" />
-    <state width="1323" height="223" key="GridCell.Tab.1.center" timestamp="1590996681471">
+    <state width="1323" height="223" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1592415344890" />
+    <state width="1323" height="223" key="GridCell.Tab.1.center" timestamp="1592415344889">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1590996681471" />
-    <state width="1323" height="223" key="GridCell.Tab.1.left" timestamp="1590996681471">
+    <state width="1323" height="223" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1592415344889" />
+    <state width="1323" height="223" key="GridCell.Tab.1.left" timestamp="1592415344889">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1590996681471" />
-    <state width="1323" height="223" key="GridCell.Tab.1.right" timestamp="1590996681472">
+    <state width="1323" height="223" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1592415344889" />
+    <state width="1323" height="223" key="GridCell.Tab.1.right" timestamp="1592415344889">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1590996681472" />
+    <state width="1323" height="223" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1592415344889" />
     <state width="220" height="477" key="HiddenNamespacesPopup" timestamp="1591361170706">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -335,23 +357,65 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1590651718100" />
-    <state x="363" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1591968841045">
+    <state x="363" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1592666009766">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="363" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1591968841045" />
-    <state x="475" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591977346565">
+    <state x="363" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1592666009766" />
+    <state x="475" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592668926729">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="475" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1591977346565" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1591973821929">
+    <state x="475" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1592668926729" />
+    <state x="346" y="49" width="672" height="160" key="search.everywhere.popup" timestamp="1592654404396">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1591973821929" />
+    <state x="346" y="49" width="672" height="160" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1592654404396" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app.py</url>
+          <line>971</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app.py</url>
+          <line>309</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app.py</url>
+          <line>399</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app.py</url>
+          <line>468</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app.py</url>
+          <line>335</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/static/verify.js</url>
+          <line>134</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/static/verify.js</url>
+          <line>215</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/shipdata$1234.coverage" NAME="1234 Coverage Results" MODIFIED="1591969347650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Documents/WeChat Files/QAq678678/FileStorage/File/2020-06" />
     <SUITE FILE_PATH="coverage/shipdata$Email.coverage" NAME="Email Coverage Results" MODIFIED="1591026287990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/shipdata$app.coverage" NAME="app Coverage Results" MODIFIED="1591976740940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/shipdata$app.coverage" NAME="app Coverage Results" MODIFIED="1592668501982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/shipdata$valide_code.coverage" NAME="valide_code Coverage Results" MODIFIED="1591053554310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/shipdata$test.coverage" NAME="test Coverage Results" MODIFIED="1592012524327" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

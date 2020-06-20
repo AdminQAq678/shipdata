@@ -1,19 +1,21 @@
-
+from querydata import querydata
 
 print('欢迎使用船舶数据库管理系统')
+
 import time
 import urllib.request
 import sys
 import tornado.ioloop
 import tornado.web
 import hashlib
+
 sys.path.append("BasicData.py")
 sys.path.append("sql.py")
 from sqlserver import *
-import sql
 from BasicData import basicdata
 from BasicData import BaseHandler
 from valide_code import *
+
 # 模板语言
 # 在html中{{变量名}}self.render("index.html",name="hello",li=[1,2,3])
 # {% for i in li %}
@@ -21,10 +23,11 @@ from valide_code import *
 # {% end%}
 database = u'Shipdata'
 tabVersion = u'系统用户表'
-mysql_pwd=u'123456'
+mysql_pwd = u'123456'
 
-#连接数据库
-mydb=conn()
+# 连接数据库
+mydb = conn()
+
 def show(self):
     global mydb
     global tabVersion
@@ -32,39 +35,40 @@ def show(self):
     global mysql_pwd
     cs1 = mydb.cursor()
 
-    print('查询用户表的属性名-----------------')
+    # print('查询用户表的属性名-----------------')
     head = two.query_1(mydb)
-    print(head)
-    print('查询用户表的数据-------------------')
+    # print(head)
+    # print('查询用户表的数据-------------------')
     data = two.query_2(mydb)
 
-    cs1.execute('select  权限 from  ' + tabVersion+' where 用户ID=%s',self.get_current_user())
-    priority=cs1.fetchall()
-    #权限
-    if(len(priority)==0):
+    cs1.execute("select  权限 from  系统用户表" + " where 用户ID=%s", self.get_current_user())
+    priority = cs1.fetchall()
+    # 权限
+    if (len(priority) == 0):
         self.redirect('/basicdata')
     print('当前登录用户的权限：')
     print(priority[0][0])
 
-    if priority[0][0] == '5':#判断权限是否为超级管理员
-        self.render("index.html", head=head, show_list=data, tabVersion=tabVersion, UserName=self.get_current_user())
-    else :
+    if priority[0][0] == '0' or priority[0][0] == '5':  # 判断权限是否为超级管理员
+        self.render("index.html", head=head, show_list=data, tabVersion="系统用户表", UserName=self.get_current_user())
+    else:
         self.redirect('/basicdata')
     cs1.close()
+
 
 class MainHandler(BaseHandler):
     @tornado.web.authenticated  # 鉴权，为登录会跳转到login_url
     def get(self):
         # self.set_cookie('UserName','password',expires=time.time()+60)
-        CurrentLoginUser=self.get_current_user()
-        #判断cookie用户是否存在于数据库中
-        if(len(two.query_2(mydb,CurrentLoginUser))==0):
-            #清除当前登录的cookie
+        CurrentLoginUser = self.get_current_user()
+        # 判断cookie用户是否存在于数据库中
+        if two.query_2(mydb, CurrentLoginUser) == None:
+            # 清除当前登录的cookie
             self.clear_cookie('ID')
-            #self.write('当前登录用户已过期，请重新登录')
+            # self.write('当前登录用户已过期，请重新登录')
             print('当前登录用户已过期，请重新登录')
             self.redirect('/login')
-        else :
+        else:
             show(self)  # 渲染页面
 
 
@@ -76,10 +80,11 @@ class deldata(tornado.web.RequestHandler):
         # print(self.get_argument("tableName"))
         # print(self.get_argument("name"))
         tableVersion = self.get_argument("tableVersion")
-        print(self.get_argument("tableVersion"))  # 获得查询的表
+        # print(tabVersion)
+        # print(self.get_argument("tableVersion"))  # 获得查询的表
 
         cs1 = mydb.cursor()
-        cs1.execute("select COLUMN_NAME from information_schema.COLUMNS where table_name =%s ",tableVersion)
+        cs1.execute("select COLUMN_NAME from information_schema.COLUMNS where table_name =%s ", tableVersion)
         data = cs1.fetchall()
 
         arg_list = []  # 保存列名
@@ -94,15 +99,15 @@ class deldata(tornado.web.RequestHandler):
             str = str + arg_list[i] + "='" + value[i] + "'"
             if i != len(arg_list) - 1:
                 str += " and "
-        print(arg_list)
-        print(value)
-        print(str)
+        # print(arg_list)
+        # print(value)
+        # print(str)
         s = "delete from " + tableVersion + " where " + str + ";"
-        print(s + "-----")
-
-        print(cs1.execute(s))
-        print('执行影响的条数')
-        print(cs1.rowcount)
+        # print(s + "-----")
+        #
+        # print(cs1.execute(s))
+        # print('执行影响的条数')
+        # print(cs1.rowcount)
         mydb.commit()
 
         cs1.close()
@@ -116,10 +121,10 @@ class adddata(tornado.web.RequestHandler):
         global database
         global mysql_pwd
         tableVersion = self.get_argument("tableVersion")  # 获得查询的表
-        print(tableVersion)
+        # print(tableVersion)
 
         cs1 = mydb.cursor()
-        #查询用户表的属性名
+        # 查询用户表的属性名
         cs1.execute("select COLUMN_NAME from information_schema.COLUMNS where table_name =%s ", tableVersion)
         data = cs1.fetchall()
 
@@ -139,12 +144,12 @@ class adddata(tornado.web.RequestHandler):
             str += "%s"  # 占位符，防止sql注入
             if i != len(arg_list) - 1:
                 str += ','
-            #url编码防止中文乱码
+            # url编码防止中文乱码
             value.append(self.get_argument(urllib.request.quote(arg_list[i])))
         # print(value)
         str += ")"
 
-        #要执行的sql语句
+        # 要执行的sql语句
         print(str + "-----")
         cs1.execute(str, tuple(value))
         mydb.commit()
@@ -173,22 +178,23 @@ class chgdata(tornado.web.RequestHandler):
         updatestr = 'update 系统用户表 set '
         for i in range(0, len(data), 1):
             arg_list.append(data[i][0])
-            if i<len(data)-1:
-                updatestr = updatestr +arg_list[i] +'=%s'+','
-            else :
-                updatestr= updatestr +arg_list[i]+'=%s'+' where 用户ID= %s'
+            if i < len(data) - 1:
+                updatestr = updatestr + arg_list[i] + '=%s' + ','
+            else:
+                updatestr = updatestr + arg_list[i] + '=%s' + ' where 用户ID= %s'
         print(arg_list)
 
         value = []  # 保存值
         for i in arg_list:  # 获取表的列值
-            value.append(self.get_argument(urllib.request.quote(i)))#url编码
+            value.append(self.get_argument(urllib.request.quote(i)))  # url编码
         value.append(value[0])
-        cs1.execute(updatestr,tuple(value))
+        cs1.execute(updatestr, tuple(value))
         mydb.commit()
-        if cs1.rowcount!=0:
-            print(cs1.rowcount,'修改成功')
+        if cs1.rowcount != 0:
+            print(cs1.rowcount, '修改成功')
         cs1.close()
         self.write({"data": "修改成功"})
+
 
 class login(tornado.web.RequestHandler):
     def get(self):
@@ -196,8 +202,8 @@ class login(tornado.web.RequestHandler):
             self.redirect('/')
 
         next_name = self.get_argument('next', '')
-        code=get_validCode_img()#生成验证码，返回验证码的字母序列
-        self.render('login.html', nextname=next_name,valid_code=code)
+        code = get_validCode_img()  # 生成验证码，返回验证码的字母序列
+        self.render('login.html', nextname=next_name, valid_code=code)
 
     def post(self):
         global tabVersion
@@ -216,17 +222,17 @@ class login(tornado.web.RequestHandler):
         str = 'select 用户ID from 系统用户表 where 用户ID= %s'
         str1 = 'select 密码 from 系统用户表 where 用户ID= %s'
 
-        #str2='select 用户ID, 密码, 员工姓名,权限 from 系统用户表 where 用户ID=%s and 密码=%s'
-        cs1.execute(str,UserId)
+        # str2='select 用户ID, 密码, 员工姓名,权限 from 系统用户表 where 用户ID=%s and 密码=%s'
+        cs1.execute(str, UserId)
         User = cs1.fetchall()
-        print(User)
-        cs1.execute(str1,UserId)
+        # print(User)
+        cs1.execute(str1, UserId)
         pwd = cs1.fetchall()
-        print('pwd', pwd)
+        # print('pwd', pwd)
 
         if len(User) == 0:
             print("登录失败，用户名不存在")
-            self.write({'data':'登录失败，用户名不存在'})
+            self.write({'data': '登录失败，用户名不存在'})
             return
         # 将用户输入的密码进行MD5加密再与数据库中获取到的密码比对
         elif pwd[0][0] != hashlib.md5(Password.encode(encoding='UTF-8')).hexdigest():
@@ -254,19 +260,18 @@ class register(tornado.web.RequestHandler):
         global mysql_pwd
         UserId = self.get_argument('UserId')
         Password = self.get_argument('Password')
-        phoneNumber=self.get_argument('phoneNumber')
-        UserName=self.get_argument('UserName')
-        Password = hashlib.md5(Password.encode(encoding='UTF-8')).hexdigest()#加密
-        print(Password)
-        print('账号', UserId)
-        print(Password)
+        phoneNumber = self.get_argument('phoneNumber')
+        UserName = self.get_argument('UserName')
+        Password = hashlib.md5(Password.encode(encoding='UTF-8')).hexdigest()  # 加密
+        # print('账号', UserId)
+        # print(Password)
         conn = pymssql.connect(host='localhost', port=1433, database='shipdata', user='root', password=mysql_pwd,
-                                      charset='utf8')
+                               charset='utf8')
         cs1 = conn.cursor()
         str = 'select * from 系统用户表 where 用户ID = %s'
-        str1 = 'insert into   系统用户表 values(%s,%s,0,%s,%s)'#默认权限为0
+        str1 = 'insert into   系统用户表 values(%s,%s,0,%s,%s)'  # 默认权限为0
 
-        cs1.execute(str,UserId)
+        cs1.execute(str, UserId)
         user = cs1.fetchall()
         print('已存在用户', user)
         nextname = self.get_argument('next', '')
@@ -278,7 +283,7 @@ class register(tornado.web.RequestHandler):
 
         else:
             print({'data': '注册成功'})
-            cs1.execute(str1, (UserId, Password,UserName,phoneNumber))
+            cs1.execute(str1, (UserId, Password, UserName, phoneNumber))
             conn.commit()
             cs1.execute('select * from 系统用户表')
 
@@ -290,7 +295,6 @@ class register(tornado.web.RequestHandler):
 
         cs1.close()
 
-
     def get(self):
         self.get_cookie()
 
@@ -299,7 +303,7 @@ class logout(tornado.web.RequestHandler):
     def get(self):
         self.clear_cookie('ID')
         current_user = self.get_secure_cookie('ID')
-        print(current_user)
+        # print(current_user)
         self.redirect('/login')
 
 
@@ -310,16 +314,16 @@ class chgdbandtab(tornado.web.RequestHandler):
         global mysql_pwd
         tabVersion = self.get_argument('tableVersion', 'p')
         database = self.get_argument('db', 'shiyan')
-        print("tab" + tabVersion)
-        print("db:" + database)
-        conn = pymssql.connect(host='localhost', port=1433, database=database, user='root', password=mysql_pwd,
-                                      charset='utf8')
-        cs1 = conn.cursor()
+        # print("tab" + tabVersion)
+        # print("db:" + database)
+        # print('-----------------------111111111111111------------------------')
+        cs1 = mydb.cursor()
         cs1.execute('select  * from  ' + tabVersion)
         data = cs1.fetchall()
-        cs1.execute('desc ' + tabVersion)
+        cs1.execute("select COLUMN_NAME from information_schema.COLUMNS where table_name = %s ", tabVersion)
         head = cs1.fetchall()
-        print(data)
+        # print(data)
+        # print(head)
         # cs1.execute()
         cs1.close()
 
@@ -328,25 +332,604 @@ class chgdbandtab(tornado.web.RequestHandler):
         # self.redirect('/')
 
 
-class verifyPatternManeger(BaseHandler):  # 校验证书管理模块
+# 校验证书管理模块
+class verifyPatternManeger(BaseHandler):
     @tornado.web.authenticated
     def get(self):
         username = self.get_current_user()
-        self.render('verifyPatternManeger.html', UserName=username)
+        data = ()
+        cs1 = mydb.cursor()
+
+        # cs1.execute("select 序号,船名,船检登记号,检验证编号,船舶所有人,船舶登记号,船舶检验类型,下次检验时间,通知时间,检验机关,检验证使用有效期至,发证日期,船只检验情况记录 from 船只检验证书")
+        # data=cs1.fetchall()
+        # head=("序号","船名","船检登记号","检验证编号","船舶所有人","船舶登记号","船舶检验类型","下次检验时间","通知时间","检验机关","检验证使用有效期至","发证日期","船只检验情况记录")
+        sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name = '锅炉检验处理历史表' "
+        cs1.execute(sql)
+        head = cs1.fetchall()
+        cs1.execute("select *from 锅炉检验处理历史表")
+        data = cs1.fetchall()
+        self.render('verifyPatternManeger.html', head=head, tabVersion="锅炉检验处理历史表", show_list=data, UserName=username)
+
+    # 删除数据使用了deldata的接口 因为
+    def post(self):
+        # 查询方式
+        tabname = self.get_argument('tableVersion', '锅炉检验处理历史表')
+        method = self.get_argument('method', 'name')  # 查询方法
+        operation = self.get_argument('operation', '')  # 操作方法 查询、更新、删除
+        # 录入数据
+        if operation == 'add':
+            tabname = self.get_argument('tableVersion', '锅炉检验处理历史表')
+            sql = "insert into " + tabname + " values(%s,%s,%s,%s,%s,%s)"
+            length = self.get_argument('length', 0)
+            operation = self.get_argument('operation')  # 获取操作类型
+            value = []
+            # 获取值
+            for i in range(int(length)):
+                value.append(self.get_argument('info_' + str(i)))
+            cs1 = mydb.cursor()
+            print('sql--------------', sql)
+            cs1.execute(sql, tuple(value))
+            if cs1.rowcount != 0:
+                self.write({'data': "添加成功"})
+            else:
+                self.write({'data': "添加失败"})
+            print('影响的行数', cs1.rowcount)
+            mydb.commit()
+
+        elif operation == 'update':
+            arg_list = ['船名', '证书编号', '办理日期', '办理人', '证书有效期至', '业务办理情况', '序号']
+            value = []
+            for i in arg_list:
+                value.append(self.get_argument(urllib.request.quote(i)))
+            sql = "update " + tabname + " set 船名 = %s,证书编号=%s ,办理日期=%s,办理人=%s,证书有效期至=%s,业务办理情况=%s where 序号=%s "
+            print(sql)
+            # print(value)
+            cs1 = mydb.cursor()
+
+            cs1.execute(sql, tuple(value))
+            mydb.commit()
+            print('影响的行数-----------', cs1.rowcount)
+            if cs1.rowcount != 0:
+                self.write({"data": '修改成功'})
+            pass
+        else:
+            if method == 'all':
+                cs1 = mydb.cursor()
+                print('表名-------', tabname)
+
+                cs1.execute("select *from " + str(tabname))
+                res = cs1.fetchall()
+
+                sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name =" + "'" + str(tabname) + "'"
+                print('----------------', sql)
+                cs1.execute(sql)
+                head = cs1.fetchall()
+                # print('data------------------------!!!!!!!!!!!!!!!!!!!!!!!', res)
+
+                data = []
+                print('结果集大小-------', len(res))
+                if (len(res) != 0):
+
+                    for i in range(len(res)):
+                        # print(res[i])
+
+                        tem = []
+                        for k in range(len(res[i])):  # 处理日期格式
+                            tem.append(str(res[i][k]))
+                        data.append(tem)
+                print(data)
+                self.write({'data': data, 'head': head})
+            else:
+
+                shipname = self.get_argument('query_info', '')
+
+                print('---shipname---', shipname)
+
+                tablename = '系统用户表'
+
+                cs1 = mydb.cursor()
+
+                if shipname != '':
+                    cs1.execute("select *from " + tabname + " where 船名 = " + shipname)
+                else:
+                    cs1.execute("select *from  " + str(tabname))
+                res = cs1.fetchall()
+                data = []
+                print('结果集大小-------', len(res))
+                if (len(res) != 0):
+
+                    for i in range(len(res)):
+                        # print(res[i])
+
+                        tem = []
+                        for k in range(len(res[i])):  # 处理日期格式
+                            tem.append(str(res[i][k]))
+                        data.append(tem)
+                print(data)
+                # print('data------------------------!!!!!!!!!!!!!!!!!!!!!!!', data)
+                self.write({'data': data})
+                pass
 
 
-class chinapatternmaneger(BaseHandler):  # 国籍配员证书管理模块
+class nationCtf(BaseHandler):
     @tornado.web.authenticated
     def get(self):
         username = self.get_current_user()
-        self.render('chinapatternManeger.html', UserName=username)
+        data = ()
+        cs1 = mydb.cursor()
+
+        # cs1.execute("select 序号,船名,船检登记号,检验证编号,船舶所有人,船舶登记号,船舶检验类型,下次检验时间,通知时间,检验机关,检验证使用有效期至,发证日期,船只检验情况记录 from 船只检验证书")
+        # data=cs1.fetchall()
+        # head=("序号","船名","船检登记号","检验证编号","船舶所有人","船舶登记号","船舶检验类型","下次检验时间","通知时间","检验机关","检验证使用有效期至","发证日期","船只检验情况记录")
+        sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name = '船舶国籍证书' "
+        cs1.execute(sql)
+        head = cs1.fetchall()
+        cs1.execute("select *from 船舶国籍证书")
+        data = cs1.fetchall()
+        self.render('nationCtf.html', head=head, tabVersion="船舶国籍证书", show_list=data, UserName=username)
+
+    def post(self):
+        # 查询方式
+        tabname = self.get_argument('tableVersion', '船舶国籍证书')
+        method = self.get_argument('method', 'name')  # 查询方法
+        operation = self.get_argument('operation', '')  # 操作方法 查询、更新、删除
+        # 录入数据
+        if operation == 'add':
+            value = []
+            # 获取值
+            length = self.get_argument('length', 0)
+            for i in range(int(length)):
+                value.append(self.get_argument('info_' + str(i)))
+            cs1 = mydb.cursor()
+            sql_1 = "select *from 船舶所有权登记证书 where 船名= %s and 登记号码=%s "
+            cs1.execute(sql_1, tuple(value[0:2]))
+            if len(cs1.fetchall()) == 0:
+                self.write({"data": "船名和登记号码不符合"})
+                return
+
+            # 1，4，5，6，7，8
+            sql_2 = "insert into 船舶国籍证书(船名,证书编号,证书有效期,取得所有权日期,签发日期,发证机关及其编号) values(%s,%s,%s,%s,%s,%s)"
+            tem = []
+            # = value[0,3,4,5,6,7]
+            tem.append(value[0])
+            tem.append(value[3])
+            tem.append(value[4])
+            tem.append(value[5])
+            tem.append(value[6])
+            tem.append(value[7])
+            # print(tem)
+            cs1.execute(sql_2, tuple(tem))
+            if cs1.rowcount != 0:
+                print("sql_2执行成功")
+            # 1，4,10,11,9,12
+            sql_3 = "insert into  国籍证书处理历史表(船名,证书编号,办理日期,办理人,证书有效期至,业务办理情况) values(%s,%s,%s,%s,%s,%s)"
+
+            # tem = value[0,3,9,10,8,11]
+            tem = []
+            tem.append(value[0])
+            tem.append(value[3])
+            tem.append(value[9])
+            tem.append(value[10])
+            tem.append(value[8])
+            tem.append(value[11])
+            # print('tem-------------',tem)
+            cs1.execute(sql_3, tuple(tem))
+            if cs1.rowcount != 0:
+                print("sql_3执行成功")
+            if cs1.rowcount != 0:
+                self.write({'data': "添加成功"})
+            else:
+                self.write({'data': "添加失败"})
+            print('影响的行数', cs1.rowcount)
+            mydb.commit()
+
+        elif operation == 'update':
+            arg_list = ['船名', '曾用名', '证书编号', '证书有效期', '取得所有权日期', '签发日期', '发证机关及其编号', '序号']
+            value = []
+            for i in arg_list:
+                value.append(self.get_argument(urllib.request.quote(i)))
+            sql = "update 船舶国籍证书 set 船名 = %s,曾用名 = %s,证书编号=%s ,证书有效期 =%s , 取得所有权日期=%s , 签发日期= %s , 发证机关及其编号=%s  where 序号=%s "
+            print(sql)
+            # print(value)
+            cs1 = mydb.cursor()
+
+            cs1.execute(sql, tuple(value))
+            mydb.commit()
+            print('影响的行数-----------', cs1.rowcount)
+            if cs1.rowcount != 0:
+                self.write({"data": '修改成功'})
+            pass
+
+        elif operation == 'del':
+            cs1 = mydb.cursor()
+
+            sql = "delete from 船舶国籍证书 where 序号 =%s"
+            value = self.get_argument(urllib.request.quote("序号"))
+            cs1.execute(sql, value)
+            mydb.commit()
+            if cs1.rowcount != 0:
+                print("删除成功")
+                self.write({"data": "删除成功"})
+            else:
+                print('删除失败')
+                self.write({"data": "删除失败"})
+            pass
+        else:
+            if method == 'all':
+                cs1 = mydb.cursor()
+                print('表名-------', tabname)
+
+                cs1.execute("select *from " + str(tabname))
+                res = cs1.fetchall()
+
+                sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name =" + "'" + str(tabname) + "'"
+                print('----------------', sql)
+                cs1.execute(sql)
+                head = cs1.fetchall()
+                # print('data------------------------!!!!!!!!!!!!!!!!!!!!!!!', res)
+
+                data = []
+                print('结果集大小-------', len(res))
+                if (len(res) != 0):
+
+                    for i in range(len(res)):
+                        # print(res[i])
+
+                        tem = []
+                        for k in range(len(res[i])):  # 处理日期格式
+                            tem.append(str(res[i][k]))
+                        data.append(tem)
+                print(data)
+                self.write({'data': data, 'head': head})
+            else:
+                print('-----表名------', tabname)
+                shipname = self.get_argument('query_info', '')
+
+                print('---shipname---', shipname)
+                # param2=self.get_argument('query_info','');
+
+                cs1 = mydb.cursor()
+
+                if shipname != '':
+                    cs1.execute("select *from " + tabname + " where 船名 = %s", str(shipname))
+                else:
+                    cs1.execute("select *from " + str(tabname))
+                res = cs1.fetchall()
+                data = []
+                # print('结果集大小-------', len(res))
+                if (len(res) != 0):
+
+                    for i in range(len(res)):
+                        # print(res[i])
+
+                        tem = []
+                        for k in range(len(res[i])):  # 处理日期格式
+                            tem.append(str(res[i][k]))
+                        data.append(tem)
+                # print(data)
+                # print('data------------------------!!!!!!!!!!!!!!!!!!!!!!!', data)
+                self.write({'data': data})
+                pass
 
 
-class watertransitionfee(BaseHandler):
+# 船只缴纳航道费
+class navigationFee(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        html = ""
+        username = self.get_current_user()
+        data = ()
+        cs1 = mydb.cursor()
+
+        # cs1.execute("select 序号,船名,船检登记号,检验证编号,船舶所有人,船舶登记号,船舶检验类型,下次检验时间,通知时间,检验机关,检验证使用有效期至,发证日期,船只检验情况记录 from 船只检验证书")
+        # data=cs1.fetchall()
+        # head=("序号","船名","船检登记号","检验证编号","船舶所有人","船舶登记号","船舶检验类型","下次检验时间","通知时间","检验机关","检验证使用有效期至","发证日期","船只检验情况记录")
+        sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name = '航道费记录表' "
+        cs1.execute(sql)
+        head = cs1.fetchall()
+        cs1.execute("select *from 航道费记录表")
+        data = cs1.fetchall()
+        self.render('navigationFee.html', head=head, tabVersion="航道费记录表", show_list=data, UserName=username)
+
+    def post(self):
+        # 查询方式
+        tabname = self.get_argument('tableVersion', '航道费记录表')
+        method = self.get_argument('method', 'name')  # 查询方法
+        operation = self.get_argument('operation', '')  # 操作方法 查询、更新、删除
+        # 录入数据
+        if operation == 'add':
+            value = []
+            # 获取值
+            length = self.get_argument('length', 0)
+            for i in range(int(length)):
+                value.append(self.get_argument('info_' + str(i)))
+            cs1 = mydb.cursor()
+            sql_1 = "select *from 船舶所有权登记证书 where 船名= %s and 登记号码=%s "
+            cs1.execute(sql_1, tuple(value[0:2]))
+            if len(cs1.fetchall()) == 0:
+                self.write({"data": "船名和登记号码不符合"})
+                return
+
+            # 1，4，5，6，7，8
+            sql_2 = "insert into 航道费记录表(船名,航道费用,交付日期,缴纳月数,费用有效期) values(%s,%s,%s,%s,%s)"
+            tem = []
+            tem.append(value[0])
+            tem.append(value[2])
+            tem.append(value[3])
+            tem.append(value[4])
+            tem.append(value[5])
+
+            cs1.execute(sql_2, tuple(tem))
+            if cs1.rowcount != 0:
+                print("sql_2执行成功")
+            # 1，4,10,11,9,12
+            sql_3 = "insert into  航道费有效期 (船名,费用有效期)  values(%s,%s)"
+
+            # tem = value[0,3,9,10,8,11]
+            tem = []
+            tem.append(value[0])
+            tem.append(value[5])
+            print('tem-------------', tem)
+            try:
+                cs1.execute(sql_3, tuple(tem))
+            except Exception:
+                self.write({'data': "添加失败"})
+                return
+            if cs1.rowcount != 0:
+                print("sql_3执行成功")
+            if cs1.rowcount != 0:
+                self.write({'data': "添加成功"})
+            else:
+                self.write({'data': "添加失败"})
+            print('影响的行数', cs1.rowcount)
+            mydb.commit()
+
+        elif operation == 'update':
+            arg_list = ['船名', '航道费用', '交付日期', '缴纳月数', '费用有效期', '序号']
+            value = []
+            for i in arg_list:
+                value.append(self.get_argument(urllib.request.quote(i)))
+            sql = "update 航道费记录表 set 船名 = %s,航道费用 = %s,交付日期=%s ,缴纳月数 =%s , 费用有效期=%s  where 序号=%s "
+            print(sql)
+            # print(value)
+            cs1 = mydb.cursor()
+
+            cs1.execute(sql, tuple(value))
+            mydb.commit()
+            print('影响的行数-----------', cs1.rowcount)
+            if cs1.rowcount != 0:
+                self.write({"data": '修改成功'})
+            pass
+
+        elif operation == 'del':
+            cs1 = mydb.cursor()
+
+            sql = "delete from 航道费记录表 where 序号 =%s"
+            value = self.get_argument(urllib.request.quote("序号"))
+            cs1.execute(sql, value)
+            mydb.commit()
+            if cs1.rowcount != 0:
+                print("删除成功")
+                self.write({"data": "删除成功"})
+            else:
+                print('删除失败')
+                self.write({"data": "删除失败"})
+            pass
+        else:
+            if method == 'all':
+                cs1 = mydb.cursor()
+                print('表名-------', tabname)
+
+                cs1.execute("select *from " + str(tabname))
+                res = cs1.fetchall()
+
+                sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name =" + "'" + str(tabname) + "'"
+                print('----------------', sql)
+                cs1.execute(sql)
+                head = cs1.fetchall()
+                # print('data------------------------!!!!!!!!!!!!!!!!!!!!!!!', res)
+
+                data = []
+                print('结果集大小-------', len(res))
+                if (len(res) != 0):
+
+                    for i in range(len(res)):
+                        # print(res[i])
+
+                        tem = []
+                        for k in range(len(res[i])):  # 处理日期格式
+                            tem.append(str(res[i][k]))
+                        data.append(tem)
+                print(data)
+                self.write({'data': data, 'head': head})
+            else:
+                print('-----表名------', tabname)
+                shipname = self.get_argument('query_info', '')
+
+                print('---shipname---', shipname)
+                # param2=self.get_argument('query_info','');
+
+                cs1 = mydb.cursor()
+
+                if shipname != '':
+                    cs1.execute("select *from " + tabname + " where 船名 = %s", str(shipname))
+                else:
+                    cs1.execute("select *from " + str(tabname))
+                res = cs1.fetchall()
+                data = []
+                # print('结果集大小-------', len(res))
+                if (len(res) != 0):
+
+                    for i in range(len(res)):
+                        # print(res[i])
+
+                        tem = []
+                        for k in range(len(res[i])):  # 处理日期格式
+                            tem.append(str(res[i][k]))
+                        data.append(tem)
+                # print(data)
+                # print('data------------------------!!!!!!!!!!!!!!!!!!!!!!!', data)
+                self.write({'data': data})
+                pass
+
+
+# 船只缴纳水运费
+class waterFee(BaseHandler):
     @tornado.web.authenticated
     def get(self):
         username = self.get_current_user()
-        self.render('waterTransitionFee.html', UserName=username)
+        cs1 = mydb.cursor()
+
+        # cs1.execute("select 序号,船名,船检登记号,检验证编号,船舶所有人,船舶登记号,船舶检验类型,下次检验时间,通知时间,检验机关,检验证使用有效期至,发证日期,船只检验情况记录 from 船只检验证书")
+        # data=cs1.fetchall()
+        # head=("序号","船名","船检登记号","检验证编号","船舶所有人","船舶登记号","船舶检验类型","下次检验时间","通知时间","检验机关","检验证使用有效期至","发证日期","船只检验情况记录")
+        sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name = '水运费记录表' "
+        cs1.execute(sql)
+        head = cs1.fetchall()
+        cs1.execute("select *from 水运费记录表")
+        data = cs1.fetchall()
+        self.render('waterFee.html', head=head, tabVersion="水运费记录表", show_list=data, UserName=username)
+
+    def post(self):
+        # 查询方式
+        tabname = self.get_argument('tableVersion', '水运费记录表')
+        method = self.get_argument('method', 'name')  # 查询方法
+        operation = self.get_argument('operation', '')  # 操作方法 查询、更新、删除
+        # 录入数据
+        if operation == 'add':
+            value = []
+            # 获取值
+            length = self.get_argument('length', 0)
+            for i in range(int(length)):
+                value.append(self.get_argument('info_' + str(i)))
+            cs1 = mydb.cursor()
+            sql_1 = "select *from 船舶所有权登记证书 where 船名= %s and 登记号码=%s "
+            cs1.execute(sql_1, tuple(value[0:2]))
+            if len(cs1.fetchall()) == 0:
+                self.write({"data": "船名和登记号码不符合"})
+                return
+
+            # 1，4，5，6，7，8
+            sql_2 = "insert into 水运费记录表(船名,水运费用,交付日期,缴纳月数,费用有效期) values(%s,%s,%s,%s,%s)"
+            tem = []
+            tem.append(value[0])
+            tem.append(value[2])
+            tem.append(value[3])
+            tem.append(value[4])
+            tem.append(value[5])
+            print(value[0] + value[1])
+            cs1.execute(sql_2, tuple(tem))
+            if cs1.rowcount != 0:
+                print("sql_2执行成功")
+            # 1，4,10,11,9,12
+            sql_3 = "insert into  水运费有效期 (船名,费用有效期)  values(%s,%s)"
+
+            # tem = value[0,3,9,10,8,11]
+            tem = []
+            tem.append(value[0])
+            tem.append(value[5])
+            # print('tem-------------',tem)
+            try:
+                cs1.execute(sql_3, tuple(tem))
+            except Exception:
+                self.write({'data': "添加失败"})
+                return
+            if cs1.rowcount != 0:
+                print("sql_3执行成功")
+            if cs1.rowcount != 0:
+                self.write({'data': "添加成功"})
+            else:
+                self.write({'data': "添加失败"})
+            print('影响的行数', cs1.rowcount)
+            mydb.commit()
+
+        elif operation == 'update':
+            arg_list = ['船名', '航道费用', '交付日期', '缴纳月数', '费用有效期', '序号']
+            value = []
+            for i in arg_list:
+                value.append(self.get_argument(urllib.request.quote(i)))
+            sql = "update 水运费记录表 set 船名 = %s,水运费用 = %s,交付日期=%s ,缴纳月数 =%s , 费用有效期=%s  where 序号=%s "
+            print(sql)
+            # print(value)
+            cs1 = mydb.cursor()
+
+            cs1.execute(sql, tuple(value))
+            mydb.commit()
+            print('影响的行数-----------', cs1.rowcount)
+            if cs1.rowcount != 0:
+                self.write({"data": '修改成功'})
+            pass
+
+        elif operation == 'del':
+            cs1 = mydb.cursor()
+
+            sql = "delete from 水运费记录表 where 序号 =%s"
+            value = self.get_argument(urllib.request.quote("序号"))
+            cs1.execute(sql, value)
+            mydb.commit()
+            if cs1.rowcount != 0:
+                print("删除成功")
+                self.write({"data": "删除成功"})
+            else:
+                print('删除失败')
+                self.write({"data": "删除失败"})
+            pass
+        else:
+            if method == 'all':
+                cs1 = mydb.cursor()
+                print('表名-------', tabname)
+
+                cs1.execute("select *from " + str(tabname))
+                res = cs1.fetchall()
+
+                sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name =" + "'" + str(tabname) + "'"
+                print('----------------', sql)
+                cs1.execute(sql)
+                head = cs1.fetchall()
+                # print('data------------------------!!!!!!!!!!!!!!!!!!!!!!!', res)
+
+                data = []
+                print('结果集大小-------', len(res))
+                if (len(res) != 0):
+
+                    for i in range(len(res)):
+                        # print(res[i])
+
+                        tem = []
+                        for k in range(len(res[i])):  # 处理日期格式
+                            tem.append(str(res[i][k]))
+                        data.append(tem)
+                print(data)
+                self.write({'data': data, 'head': head})
+            else:
+                print('-----表名------', tabname)
+                shipname = self.get_argument('query_info', '')
+
+                print('---shipname---', shipname)
+                # param2=self.get_argument('query_info','');
+
+                cs1 = mydb.cursor()
+
+                if shipname != '':
+                    cs1.execute("select *from " + tabname + " where 船名 = %s", str(shipname))
+                else:
+                    cs1.execute("select *from " + str(tabname))
+                res = cs1.fetchall()
+                data = []
+                # print('结果集大小-------', len(res))
+                if (len(res) != 0):
+
+                    for i in range(len(res)):
+                        # print(res[i])
+
+                        tem = []
+                        for k in range(len(res[i])):  # 处理日期格式
+                            tem.append(str(res[i][k]))
+                        data.append(tem)
+                # print(data)
+                # print('data------------------------!!!!!!!!!!!!!!!!!!!!!!!', data)
+                self.write({'data': data})
+                pass
 
 
 class chgpwd(BaseHandler):
@@ -361,12 +944,12 @@ class chgpwd(BaseHandler):
         new_pwd = hashlib.md5(new_pwd.encode(encoding="UTF-8")).hexdigest()
         user = self.get_secure_cookie("ID");
         conn = pymssql.connect(host='localhost', port=1433, database='shipdata', user='root', password=mysql_pwd,
-                                      charset='utf8')
+                               charset='utf8')
         cs1 = conn.cursor()
         print(user)
         cs1.execute('select 密码 from 系统用户表  where 用户ID = %s', user)
         pwd = cs1.fetchall()
-        print(pwd[0][0])
+        # print(pwd[0][0])
         if pwd[0][0] != hashlib.md5(pre_pwd.encode(encoding="UTF-8")).hexdigest():  # 客户端输入的旧密码非用户真正旧密码
             self.write({'data': '旧密码输入错误'})
             print('旧密码输入错误')
@@ -376,14 +959,15 @@ class chgpwd(BaseHandler):
             self.write({'data': '修改密码成功'})
             print('修改密码成功')
             self.clear_cookie('ID')
-            pwd = cs1.fetchall()
 
         cs1.close()
 
+
 class getValid_code(tornado.web.RequestHandler):
     def get(self):
-        code=get_validCode_img()
-        self.write({'data':'获取验证码成功','code':code})
+        code = get_validCode_img()
+        self.write({'data': '获取验证码成功', 'code': code})
+
 
 def make_app():
     return tornado.web.Application([
@@ -396,11 +980,13 @@ def make_app():
         (r"/logout", logout),
         (r"/chgdbandtab", chgdbandtab),
         (r"/basicdata", basicdata),
-        (r"/verifyPatternManeger", verifyPatternManeger),# 船只检验证书资料管理模块
-        (r"/chinapatternmaneger", chinapatternmaneger), # 国籍配员证书管理模块
-        (r"/watertransitionfee", watertransitionfee),   # 缴纳水运费情况管理模块
+        (r"/querydata", querydata),
+        (r"/verifyPatternManeger", verifyPatternManeger),  # 船只检验证书资料管理模块7
+        (r"/nationCtf", nationCtf),  # 国籍配员证书管理模块8
+        (r"/navigationFee", navigationFee),  # 船只缴纳航道非情况管理模块9
+        (r"/waterFee", waterFee),  # 缴纳水运费情况管理模块
         (r"/chgpwd", chgpwd),
-        (r"/getValid_code",getValid_code)],
+        (r"/getValid_code", getValid_code)],
         static_path="static",
         template_path="template",
         cookie_secret='dfscmnlk2343jndjfndsfkivnd',  # cookie密码，必须要设置
