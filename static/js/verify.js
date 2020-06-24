@@ -289,62 +289,6 @@ submit_btn.onclick=()=>{//提交按钮
 	    add_btn.click();
     })
 }
-//修改数据库和表，可删除
-chgdbandtabbtn.onclick=()=>{
-    var dbInput=document.getElementById('dbInput');
-    var tabInput=document.getElementById('tabInput');
-    var s={}
-    s['db']=dbInput.value;
-    s['tableVersion']=tabInput.value;
-    $.ajax({
-        type:"POST",
-        url:"/chgdbandtab",
-        data:s,
-        dataType:"json",
-        success:function(data){
-        // window.location.reload();//刷新页面
-           console.log('ok')
-           var head=data.head;
-           var data1=data.data;
-            tabVersion=data.tabVersion;
-           console.log(head);
-           console.log(data1);
-           console.log(tabVersion);
-           var trLength=tr.length;
-           for (var i =1;i<trLength;i++)
-           {
-               console.log(i)
-               realtable.deleteRow(1);
-
-           }
-
-           var t=realtable.insertRow(tr.length);
-           //插入表头
-           for (var i=0;i<head.length;i++){
-               var tem=t.insertCell(i);
-               tem.innerText=head[i][0]
-           }
-           //插入表体
-           for (var i=0;i<data1.length;i++){
-                 var t=realtable.insertRow(tr.length);
-                 for (var k=0;k<data1[i].length;k++){
-                   var tem=t.insertCell(k);
-                   tem.innerText=data1[i][k]
-                   }
-           }
-           $("#tableVersion").children()[0].innerText=tabVersion;
-
-            // $(tableVersion).parent()
-
-           // var t=realtable.insertRow(tr.length );//在表格的最后一行插入
-           // for (var i = th.length - 1; i >= 0; i--) {
-           //     t.insertCell(0);//插入单元格
-           //     t.contentEditable=true;//设置可编辑
-           // };
-
-        }
-    });
-}
 //下方查询按钮监听
 document.getElementById('query_btn').onclick=()=>{
     var info=document.getElementById('query_info');

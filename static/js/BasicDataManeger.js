@@ -20,9 +20,10 @@ add_btn.onclick=()=>{
     //alert("hello")
     mod_btn_status=0;
     if(add_btn_status==0){//查询状态，将输入框转为可编辑状态
-        for (var i =0;i<myinfo_panel.length;i++){
+        myinfo_panel[0].value="";
+        for (var i =1;i<myinfo_panel.length;i++){
             myinfo_panel[i].disabled=false;
-            myinfo_panel[i].value="";//增加新的资料
+            myinfo_panel[0].value="";//增加新的资料
         }
 
         add_btn_status=1;
@@ -30,7 +31,7 @@ add_btn.onclick=()=>{
         var url='';
         var data={}
         data['length']=myinfo_panel.length;
-        for(var i=0;i<myinfo_panel.length;i++){
+        for(var i=1;i<myinfo_panel.length;i++){
             data['info_'+i]=myinfo_panel[i].value;//规定格式
         }
         data['operation']='add';
@@ -46,11 +47,11 @@ mod_btn.onclick=()=>{
     add_btn_status=0;
     if(mod_btn_status==0){//查询状态，将输入框转为可编辑状态
 
-        for (var i =0;i<myinfo_panel.length;i++){
+        for (var i =1;i<myinfo_panel.length;i++){
             myinfo_panel[i].disabled=false;//修改资料
         }
         myinfo_panel[0].disabled=true;
-        myinfo_panel[1].disabled=true;
+        // myinfo_panel[1].disabled=true;
         mod_btn_status=1;
     }else if(mod_btn_status==1){//编辑状态，此时可发送数据到后台
 
