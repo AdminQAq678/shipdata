@@ -1,6 +1,6 @@
 # import mysql.connector
 #coding=utf-8
-import pymysql
+import pymssql
 # def connect():
 #     config={'host':'127.0.0.1' or 'localhost',
 #             'user':'root',
@@ -17,10 +17,13 @@ import pymysql
 #         print("数据库连接sucessfully!")
 #         return mydb
 def connect():
-    mysql_pwd='Cnz@1231'
-    mydb= pymysql.connect(host='localhost', port=3306, database='shipdata', user='root', password=mysql_pwd,
-                               charset='utf8')
-    return mydb
+    connect = pymssql.connect(host='localhost', port=1433, database='Shipdata', user='root', password='123456',charset="utf8")
+
+    if connect:
+        print("连接成功！")
+    else:
+        print("连接失败！")
+    return connect
 
 
 class one:   #登录信息管理模块
@@ -309,7 +312,7 @@ mydb=connect()
 # ten.delete(mydb,"DELETE FROM `船舶电台执照`")
 # ten.add(mydb,"INSERT INTO `船舶电台执照` (`序号`,`船名`,`呼号`,`隶属单位`,`公众通信类别`,`签发日期`,`有效期至`) VALUES (%s,%s,%s,%s,%s,%s,%s)",("2","pp","456","oo","ll","2020-05-29 10:36:37.000000","2020-05-31 10:36:41.000000"))
 # ten.update(mydb,"UPDATE `船舶电台执照` SET `船名`=%s WHERE `船名`=%s",("hh","gg"))
-ten.query(mydb,"SELECT* FROM `船舶电台执照`")
+
 
 # 增加数据    类名.add(mydb,"INSERT INTO `表名` (`列名1`,`列名2`,.........) VALUES (%s,%s,.....)",("val1","val2",......))
 # 删除数据    类名.delete(mydb,"DELETE FROM `表名` WHERE `序号`=所要删除的行的序号")      *删除某行数据

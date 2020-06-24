@@ -10,9 +10,12 @@ var query_btn=document.getElementById('query_btn');//查询按钮
 var query_info=document.getElementById('query_info');//查询输入框
 
 query_btn.onclick=()=>{
-    for (var i =0;i<myinfo_panel.length;i++){
-     myinfo_panel[i].disabled=true;//禁用表单
-    }
+
+        myinfo_panel_1.disabled=true;
+        myinfo_panel_2.disabled=true;
+        myinfo_panel_3.disabled=true;
+        myinfo_panel_4.disabled=true;
+
 
     var url='/querydata';
         var data={}
@@ -30,25 +33,36 @@ query_btn.onclick=()=>{
         //         //     alert('查询失败，无该船的基本资料')
         //         //     return ;
         //         // }
-        console.log(e.data);//接收服务器返回的数据
+        console.log(e.query_data_3);//接收服务器返回的数据
         //获取服务器传来的数据
         if(query_method=='query_1') {
-            for (var i = 0; i < myinfo_panel_1.length; i++) {
-                myinfo_panel_1[i].value = e.data.query_data_1[i]
-                myinfo_panel_1[i].disabled = true;
+            console.log(e.query_data_1)
+            if(e.query_data_1!=null){
+                for (var i = 0; i < myinfo_panel_1.length; i++) {
+                    myinfo_panel_1[i].value = e.query_data_1[i]
+                    myinfo_panel_1[i].disabled = true;
+                }
             }
-            for (var i = 0; i < myinfo_panel_2.length; i++) {
-                myinfo_panel_2[i].value = e.data.query_data_2[i]
-                myinfo_panel_2[i].disabled = true;
+            if(e.query_data_2!=null){
+                for (var i = 0; i < myinfo_panel_2.length; i++) {
+                    myinfo_panel_2[i].value = e.data.query_data_2[i]
+                    myinfo_panel_2[i].disabled = true;
+                }
             }
-            for (var i = 0; i < myinfo_panel_3.length; i++) {
-                myinfo_panel_3[i].value = e.data.query_data_3[i]
-                myinfo_panel_3[i].disabled = true;
+
+            if(e.query_data_3!=null) {
+                for (var i = 0; i < myinfo_panel_3.length; i++) {
+                    myinfo_panel_3[i].value = e.query_data_3[i]
+                    myinfo_panel_3[i].disabled = true;
+                }
             }
-            for (var i = 0; i < myinfo_panel_4.length; i++) {
-                myinfo_panel_4[i].value = e.data.query_data_4[i]
+            if(e.query_data_4!=null){
+                for (var i = 0; i < myinfo_panel_4.length; i++) {
+                myinfo_panel_4[i].value = e.query_data_4[i]
                 myinfo_panel_4[i].disabled = true;
             }
+            }
+
         }
 
         if(query_method=='query_2'){

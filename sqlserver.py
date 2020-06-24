@@ -10,7 +10,7 @@ import pymssql
 
 def conn():
     # connect = pymssql.connect('LAPTOP-M8G6B89C\SQLEXPRESS', 'user01', '1044133821', 'ShipData5')  #服务器名称，账号，密码，数据库名称
-    connect = pymssql.connect(host='localhost', port=1433, database='Shipdata', user='root', password='123456')
+    connect = pymssql.connect(host='localhost', port=1433, database='Shipdata', user='root', password='123456',charset="utf8")
 
     if connect:
         print("连接成功！")

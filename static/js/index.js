@@ -169,6 +169,7 @@ submit_btn.onclick=()=>{//提交按钮
     console.log(s)
      $.post('/adddata',s,(e)=>{//将s发送到客户端
        console.log(e.data)
+         alert(e.data)
       // query_btn.click();//触发查询点击按钮，使得页面返回查询页面
 
        var theLastRow=tr[tr.length-1];

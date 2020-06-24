@@ -1,9 +1,9 @@
+from datetime import datetime
+
 import tornado.web
-import aiomysql
 from sql import *
 
 mydb = connect()
-
 
 class BaseHandler(tornado.web.RequestHandler):  # 用来获取cookie，下面的鉴权注解会用到
     def get_current_user(self):
@@ -26,9 +26,18 @@ class basicdata(BaseHandler):
         cs1.close()
         username = self.get_current_user()
         self.render('BasicDataManeger.html', UserName=username, head=head)
+    def tran(self,date):
 
+        if date.__contains__(':'):
+            startTime = datetime.strptime(date, '%Y-%m-%d  %H:%M:%S')
+        else:
+            startTime = datetime.strptime(date, '%Y-%m-%d')
+        print(startTime)
+        return startTime
     def post(self):
-        addstr = 'insert into 船舶所有权登记证书 values('
+        addstr = "insert into 船舶所有权登记证书(船名,登记号码,初次登记号,曾用名,船籍港,原船籍港,船舶呼号,IMO编号,船舶种类,船体材料," \
+                 "造船地点,建成日期,船舶价值,总长,型宽,型深,总吨,载重,净吨,主机种类,主机数目,功率,推进器种类,推进器数目,船舶所有人," \
+                 "船舶所有人地址,法定代表人姓名,取得所有权日期,发证机关,编号,发证日期) values("
         querystr = 'select * from 船舶所有权登记证书 where  '
         delstr = 'delete from 船舶所有权登记证书 where 船名 = %s '
 
@@ -37,16 +46,36 @@ class basicdata(BaseHandler):
         value = []
         # 获取值
         for i in range(int(length)):
+            #print(i)
+            if i==11 or i==30or i==27:
+                print(self.get_argument('info_' + str(i)))
+            #     value.append(self.get_argument('info_' + str(i)))
+            # else:
+            #     value.append(self.get_argument('info_' + str(i)))
             value.append(self.get_argument('info_' + str(i)))
         sqlstr = ''
         if operation == 'add':
+            print("-----------------------------------------------")
+            print(value)
             sqlstr = addstr
             for i in range(int(length)):
+
                 if i < int(length) - 1:
-                    sqlstr += '%s,'
+                    sqlstr +="%s,"
                 else:
-                    sqlstr += '%s)'
-            four.add(mydb, sqlstr, tuple(value))  # 第四个模块增加数据
+                    sqlstr +="%s)"
+            print("------------------")
+            print(sqlstr)
+            print(value)
+            cs1=mydb.cursor()
+            sqlstr="insert into 船舶所有权登记证书([船名],[登记号码],[初次登记号],[船舶种类],[船体材料],[建成日期],[总长],[型宽],[型深],[总吨],[净吨],[主机种类],[主机数目],[功率],[推进器种类],[推进器数目],[船舶所有人],[法定代表人姓名],[发证日期])" \
+                   " values('1123344','1123','1123','1123','1123','1999',200,200,200,200,200,'A',3,100,'D',100,'AAA','AAA','1999')"
+            #sqlstr="sp_help [船舶所有权登记证书]"
+            print(sqlstr)
+            cs1.execute(sqlstr)
+            print(cs1.fetchall())
+            #
+            #four.add(mydb, sqlstr, tuple(value))  # 第四个模块增加数据
         if operation == 'del':
             sqlstr = delstr
             del_info = self.get_argument('del_info')  # 要删除的船名
@@ -82,6 +111,8 @@ class basicdata(BaseHandler):
             self.write({'data': data, 'code': '200'})
         if operation == 'mod':
             update(mydb, value)  # update数据
+
+
 
 
 def update(mydb, value):

@@ -1,8 +1,8 @@
+from datetime import datetime
+
 from querydata import querydata
 
 print('欢迎使用船舶数据库管理系统')
-
-import time
 import urllib.request
 import sys
 import tornado.ioloop
@@ -805,12 +805,27 @@ class waterFee(BaseHandler):
             cs1 = mydb.cursor()
             sql_1 = "select *from 船舶所有权登记证书 where 船名= %s and 登记号码=%s "
             cs1.execute(sql_1, tuple(value[0:2]))
-            if len(cs1.fetchall()) == 0:
-                self.write({"data": "船名和登记号码不符合"})
-                return
-
+            # if len(cs1.fetchall()) == 0:
+            #     self.write({"data": "船名和登记号码不符合"})
+            #     return
+            # ss="insert into 船舶所有权登记证书(船名,登记号码,初次登记号,曾用名,船籍港,原船籍港,船舶呼号,IMO编号,船舶种类,船体材料," \
+            #      "造船地点,建成日期,船舶价值,总长,型宽,型深,总吨,载重,净吨,主机种类,主机数目,功率,推进器种类,推进器数目,船舶所有人," \
+            #      "船舶所有人地址,法定代表人姓名,发证机关,编号,发证日期) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s," \
+            #    "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            # v=['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', "2020-12-13", '100', '1', '1', '12', '12', '12',
+            #  '12', '1212', '12', '12', '13', '12', '12', '12', '12', '似懂非懂', '12', "2020-12-13"]
+            # print(tuple(v))
+            # cs1.execute(ss, tuple(v))
+            sql_x = u"insert into 船舶所有权登记证书([船名],[登记号码],[初次登记号],[船舶种类],[船体材料],[建成日期],[总长]," \
+                    "[型宽],[型深],[总吨],[净吨],[主机种类],[主机数目],[功率],[推进器种类],[推进器数目],[船舶所有人],[法定代表人姓名],[发证日期]) values(" \
+                    "'113453','1233123','1123','1123','1123','1999-11-13 12:00:00',200,200,200,200,200,'A',3,100,'D',100,'AAA','AAA','1999-11-13 12:00:00')"
+            v=['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', str(datetime.now()), 100, 1, 1, 12,  12,
+             12, '1212', 12, 12, '13', '12', '12', '12', '12', '似懂非懂', '12', str(datetime.now())]
+            print(sql_x)
+            cs1.execute(sql_x)
             # 1，4，5，6，7，8
             sql_2 = "insert into 水运费记录表(船名,水运费用,交付日期,缴纳月数,费用有效期) values(%s,%s,%s,%s,%s)"
+
             tem = []
             tem.append(value[0])
             tem.append(value[2])
@@ -818,6 +833,7 @@ class waterFee(BaseHandler):
             tem.append(value[4])
             tem.append(value[5])
             print(value[0] + value[1])
+            print(tem)
             cs1.execute(sql_2, tuple(tem))
             if cs1.rowcount != 0:
                 print("sql_2执行成功")

@@ -2,6 +2,9 @@
 
 
 }
+.mycssbtn{
+    margin-right: 10px;
+}
 img{
 	margin-top: 20px;
 }
@@ -16,7 +19,7 @@ img{
     font-size:45px;
 }
 body{
-background-image: url("http://pic.netbian.com/uploads/allimg/200328/231430-1585408470286e.jpg"); background-position: initial; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; background-origin: initial; background-clip: initial;
+background-image: url("../img/face.jpg"); background-position: initial; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; background-origin: initial; background-clip: initial;
 height:100%;
 width:100%;
 }
